@@ -27,7 +27,7 @@ The simplest electrochemical mechanism, the Butler-Volmer reversible 1-step elec
 This will be used for testing simTafel, as well as for subsequently ensuring we can fit the data for the simplest case
 """
 class BV(object):
-    def __init__(s, pH=7., fwd_scale=0.01, ep=10.**-4):
+    def __init__(s, pH=7., fwd_scale=100., ep=10.**-4):
         s.f = 38.684
         s.pH = pH
         s.ep = ep #what is the smallest point where they can observe the current?
@@ -66,7 +66,7 @@ class simTafel(object):
         onsetV_list.pop(0) #remove the first element, 0, which was only an initial guess
 
         gradV = np.gradient(onsetV_list, pH_linspace[1]-pH_linspace[0]) #the pH[1]-pH[0] is the pH spacing. nernstian d(V_onset)/d(pH) is 59mV/pH
-        return onsetV_list
+        return onsetV_list, gradV
 
 
 
@@ -82,8 +82,9 @@ if __name__ == "__main__":
 #    plt.plot(V,r)
 
     pH_dom = np.linspace(3,14,400)
+#    simBV = simTafel(bv, ep=0)
     simBV = simTafel(bv)
-    onset_Vs = simBV.OnsetScanPH(pH_dom)
+    onset_Vs, grad_Vs = simBV.OnsetScanPH(pH_dom)
 
     plt.plot(pH_dom, onset_Vs)
 
