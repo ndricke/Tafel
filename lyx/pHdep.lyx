@@ -1,0 +1,676 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass scrartcl
+\begin_preamble
+
+\end_preamble
+\options bibliography=totoc,index=totoc,BCOR7.5mm,titlepage,captions=tableheading
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing single
+\use_hyperref true
+\pdf_title "LyX's Math Manual"
+\pdf_author "LyX Team, Uwe Stöhr"
+\pdf_subject "LyX-documentation about math"
+\pdf_keywords "LyX, Mathed"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle false
+\pdf_quoted_options "linkcolor=black, citecolor=black, urlcolor=blue, filecolor=blue, pdfpagelayout=OneColumn, pdfnewwindow=true, pdfstartview=XYZ, plainpages=false"
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\notefontcolor #0000ff
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 4
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle plain
+\bullet 1 0 6 -1
+\bullet 2 2 35 -1
+\bullet 3 2 7 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset Formula $R_{1}+H_{3}O^{+}\rightleftharpoons R_{2}+H_{2}O\rightarrow R_{1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R_{1}+H_{2}O\rightleftharpoons R_{2}+OH^{-}\rightarrow R_{1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta=\frac{k_{1}}{k_{1}+k_{-1}\left[OH^{-}\right]+k_{L}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta=\frac{k_{1}}{k_{1}+k_{-1}\left[OH^{-}\right]+k_{L}}\frac{\left[H^{+}\right]}{\left[H^{+}\right]}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta=\frac{k_{1}\left[H^{+}\right]}{k_{1}\left[H^{+}\right]+k_{-1}+k_{L}\left[H^{+}\right]}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta=\frac{k_{1}\left[H^{+}\right]}{k_{1}\left[H^{+}\right]+k_{-1}+k_{L}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Troy said yesterday that the ratio of forward to back rates for each of
+ these 2 reactions must be the same.
+ How can we verify that is necessarily true?
+\end_layout
+
+\begin_layout Standard
+Electrocatalysis only modifies the energies of the states, and we maintain
+ their populations far from equilibrium.
+\end_layout
+
+\begin_layout Standard
+For an individual species, however, we can think of it existing in one of
+ 2 states:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R_{1}\rightleftharpoons R_{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The process of going between these 2 states may occur either by the acid-
+ or base-mediated mechanism.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R+H_{3}O^{+}+e^{-}\rightleftharpoons RH+H_{2}O$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R+H_{2}O\rightleftharpoons RH+OH^{-}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The rates of these process may depend on surface coverage, but for the moment
+ we will restrict ourselves to rate constants, which we assume are independent
+ of surface coverage.
+\end_layout
+
+\begin_layout Standard
+Of rate constants we may make the statements:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $k_{a}=k_{a}^{o}a_{H^{+}}e^{-\alpha f\eta}=k_{a}^{o}10^{-pH}e^{-\alpha f\eta}=k_{a}^{o}e^{-2.303pH}e^{-\alpha f\eta}=k_{a}^{o}e^{-2.303pH-\alpha f\eta}=k_{a}^{o}e^{-(0.059pH+\alpha\eta)f}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $k_{-a}=k_{-a}^{o}a_{H_{2}O}e^{(1-\alpha)f\eta}=k_{-a}^{o}e^{(1-\alpha)f\eta}$
+\end_inset
+
+ if we absorb water activity for now
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $k_{b}=k_{b}^{o}a_{H_{2}O}e^{-\alpha f\eta}=k_{b}^{o}e^{-\alpha f\eta}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $k_{-b}=k_{-b}^{o}a_{OH^{-}}e^{(1-\alpha)f\eta}=k_{-b}^{o}10^{-pOH}e^{(1-\alpha)f\eta}=k_{-b}^{o}10^{-pK_{w}+pH}e^{(1-\alpha)f\eta}=k_{-b}^{o}10^{-pK_{w}}e^{2.303pH}e^{(1-\alpha)f\eta}=k_{-b}^{o}e^{(0.059pH+(1-\alpha)\eta)f}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+There exists for this step an equilibrium constant, 
+\begin_inset Formula $K$
+\end_inset
+
+, that is independent of the presence of other reaction steps that may bring
+ the populations away from equilibrium.
+ 
+\begin_inset Formula $K$
+\end_inset
+
+ is fundamentally related to the rate constants by
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $K=\frac{k_{a}}{k_{-a}}=\frac{k_{b}}{k_{-b}}=e^{-\Delta G/RT}=\frac{k_{a}^{o}e^{-(0.059pH+\alpha\eta)f}}{k_{-a}^{o}e^{(1-\alpha)f\eta}}=\frac{k_{a}^{o}}{k_{-a}^{o}}e^{-(0.059pH+\eta)f}=\frac{k_{b}^{o}}{k_{-b}^{o}}e^{-(0.059pH+\eta)f}=\frac{k_{b}^{o}e^{-\alpha f\eta}}{k_{-b}^{o}e^{(0.059pH+(1-\alpha))f}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\frac{k_{a}^{o}}{k_{-a}^{o}}=\frac{k_{b}^{o}}{k_{-b}^{o}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The equilibrium constant is the same for both pathways because consuming
+ 
+\begin_inset Formula $H^{+}$
+\end_inset
+
+ is energetically the same as producing 
+\begin_inset Formula $OH^{-}$
+\end_inset
+
+ in solution, and all the equilibrium constant represents is a free energy
+ difference between reactants and products.
+ While in general, 
+\begin_inset Formula $k_{a}\neq k_{b}$
+\end_inset
+
+, there should be a pH where the two cross in value.
+ Encountering this point while scanning over pH could possibly cause aberrant
+ dependence of overpotential on pH that should follow a consistent trend.
+ Overall, the total rate is:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R=(k_{a}+k_{b})\theta_{1}-(k_{-a}+k_{-b})\theta_{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Experimentally, we observe when R is appreciably above a certain absolute
+ value.
+ Let's refer to this value as 
+\begin_inset Formula $\varepsilon$
+\end_inset
+
+.
+ Now, I don't think value necessarily corresponds to the point where 
+\begin_inset Formula $\eta=0$
+\end_inset
+
+ because we know for a fact that these things aren't just totally reversible.
+ What makes things irreversible is the activation energy, perhaps because
+ it is large and that makes the rates small unless we let some of the energy
+ be lost thermally.
+ 
+\end_layout
+
+\begin_layout Standard
+I've already absorbed this activation energy into the rate constants.
+ An important point to make is that the activation energy is present both
+ forwards and backwards, but the thermodynamics also kicks in if the 2 aren't
+ at the same energy level.
+ Now, for this system we are defining 
+\begin_inset Formula $\eta$
+\end_inset
+
+ such that the energy levels are the same.
+ I suppose I've chosen an applied voltage and a pH that makes the energy
+ levels both the same, and now I'm defining 
+\begin_inset Formula $\eta=0$
+\end_inset
+
+ and 
+\begin_inset Formula $h=0$
+\end_inset
+
+ at that point, where 
+\begin_inset Formula $h$
+\end_inset
+
+ is just the pH shifted by a constant.
+ This means that deviating 
+\begin_inset Formula $\eta$
+\end_inset
+
+ or 
+\begin_inset Formula $h$
+\end_inset
+
+ from 0 will tip the equilibrium in a particular direction.
+ 
+\end_layout
+
+\begin_layout Standard
+At this point I think I can simplify the rate constants based on equilibrium
+ constants.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $K=\frac{k_{a}}{k_{-a}}=\frac{k_{a}^{o}}{k_{-a}^{o}}e^{-(0.059h+\eta)f}=1$
+\end_inset
+
+, as 
+\begin_inset Formula $K=\frac{[RH]}{[R]}=e^{-\Delta G/RT}=1$
+\end_inset
+
+ if they are at precisely the same free energy.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\therefore k_{a}^{o}=k_{-a}^{o}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, I think this is okay because it does not yet fly in the face of anything
+ else we know.
+ If these forward and back rate constants are the same, then that ratio
+ is going to always be one.
+ However, the rate constants should not necessarily be the same as one another
+ (and the story is much more interesting if they aren't).
+\end_layout
+
+\begin_layout Standard
+This makes
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $k_{a}=Ae^{-(0.059h+\alpha\eta)f}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $k_{-a}=Ae^{(1-\alpha)f\eta}$
+\end_inset
+
+ if we absorb water activity for now
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $k_{b}=Be^{-\alpha f\eta}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $k_{-b}=Be^{(0.059h+(1-\alpha)\eta)f}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R=(Ae^{-(0.059h+\alpha\eta)f}+Be^{-\alpha f\eta})\theta_{1}-(Ae^{(1-\alpha)f\eta}+Be^{(0.059h+(1-\alpha)\eta)f})\theta_{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, if R is really 0 in this situation, it's because both processes are
+ at equilibrium.
+ We cannot have one move backward while the other moves forward, because
+ 
+\begin_inset Formula $K$
+\end_inset
+
+ dictates that the surface coverage each process tends toward is the same.
+\end_layout
+
+\begin_layout Standard
+As a further simplification, I think we need to account for the circumstance
+ where the reverse rates are negligible.
+ This simple model should be sufficient for showing the transition we are
+ looking for, and we can build in the reversibility afterward.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R=(Ae^{-(0.059h+\alpha\eta)f}+Be^{-\alpha f\eta})\theta_{1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, let's say that there is a discrepancy between the rate constants 
+\begin_inset Formula $A$
+\end_inset
+
+ and 
+\begin_inset Formula $B$
+\end_inset
+
+, that this is the RLS so we may assume 
+\begin_inset Formula $\theta_{1}=1$
+\end_inset
+
+, and say that the observable rate is 
+\begin_inset Formula $\varepsilon B$
+\end_inset
+
+, such that we can re-write this as
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\varepsilon=A'e^{-(0.059h+\alpha\eta)f}+e^{-\alpha f\eta}$
+\end_inset
+
+, with 
+\begin_inset Formula $A'=\frac{A}{B}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I suppose we're curious about the roots of 
+\begin_inset Formula $A'e^{-(0.059h+\alpha\eta)f}+e^{-\alpha f\eta}-\varepsilon$
+\end_inset
+
+, namely what values of 
+\begin_inset Formula $h$
+\end_inset
+
+ and 
+\begin_inset Formula $\eta$
+\end_inset
+
+ give a root.
+\end_layout
+
+\begin_layout Standard
+Perhaps an equally interesting question is where the equivalence point is,
+ namely at what pH the two rates are equal.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $Ae^{-(0.059h+\alpha\eta)f}=Be^{-\alpha f\eta}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $Ae^{-0.059hf}=B$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\frac{A}{B}=e^{0.059hf}$
+\end_inset
+
+, which means at higher pH, the ratio of A to B must also be higher for
+ the rates to be equivalent.
+ At higher pH, we know from how we constructed these formulas that 
+\begin_inset Formula $r_{a}$
+\end_inset
+
+ should be lower because it is acid coupled, which means that a higher prefactor
+ is necessary for the 2 rates to be equivalent for a given pH.
+ Phew, okay, good.
+\end_layout
+
+\begin_layout Standard
+So, the transition should happen at 
+\begin_inset Formula $h=\frac{ln(\frac{A}{B})}{0.059f}=log_{10}(\frac{A}{B})$
+\end_inset
+
+, so maybe if 
+\begin_inset Formula $\frac{A}{B}=100$
+\end_inset
+
+, then this transition should happen at 
+\begin_inset Formula $h=2$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+What does this transition look like in terms of overpotential?
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $0=(A'10^{-h}+1)e^{-\alpha f\eta}-\varepsilon$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\varepsilon e^{\alpha f\eta}=A'10^{-h}+1$
+\end_inset
+
+, 
+\begin_inset Formula $\eta=\frac{ln(A'10^{-h}+1)-ln(\varepsilon)}{\alpha f}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\frac{\varepsilon e^{\alpha f\eta}-1}{A'}=10^{-h}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $h=log(\frac{A'}{\varepsilon e^{\alpha f\eta}-1})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I plotted this in /work/tafel/tafvpH.py, which appears to show a shallow
+ drop off at 
+\begin_inset Formula $h=2$
+\end_inset
+
+, relatively similar to the data both Elise and Alex saw for their ORR systems.
+\end_layout
+
+\begin_layout Standard
+So this is fine and all, but I am curious how having a pH that favors the
+ reverse rate would change this picture.
+ The two confusing aspects of the pH discussion 1.
+ why is the pH order weak and 2.
+ what explains the regimes where it is linear (but sub-Nernstian?)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R=(Ae^{-(0.059h+\alpha\eta)f}+Be^{-\alpha f\eta})\theta_{1}-(Ae^{(1-\alpha)f\eta}+Be^{(0.059h+(1-\alpha)\eta)f})\theta_{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\varepsilon=(A10^{-h}+1)e^{-\alpha f\eta}\theta_{1}-(A+10^{h})e^{(1-\alpha)f\eta}\theta_{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $0=(A10^{-h}+1)e^{-\alpha f\eta}\theta_{1}-(A+10^{h})e^{(1-\alpha)f\eta}\theta_{2}-\varepsilon$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $0=(A+10^{h})10^{-h}e^{-\alpha f\eta}\theta_{1}-(A+10^{h})e^{(1-\alpha)f\eta}\theta_{2}-\varepsilon$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $0=10^{-h}e^{-\alpha f\eta}\theta_{1}-e^{(1-\alpha)f\eta}\theta_{2}-\varepsilon$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $10^{-h}e^{-\alpha f\eta}\theta_{1}=e^{(1-\alpha)f\eta}\theta_{2}+\varepsilon$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+aa
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\end_body
+\end_document

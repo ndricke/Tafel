@@ -1,0 +1,619 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass revtex4
+\options aps,preprint
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+Tafel Analysis of Pycat System
+\end_layout
+
+\begin_layout Standard
+Nathan Ricke
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $ROH\rightleftarrows R\rightleftarrows RO_{2}\rightarrow RO_{2}^{-}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I'm going to assume that the electron transfer to 
+\begin_inset Formula $RO_{2}$
+\end_inset
+
+ is the rate determining step, at least nominally.
+ Once we have the species 
+\begin_inset Formula $RO_{2}^{-}$
+\end_inset
+
+, it is incredibly downhill (>1.0eV) to convert to 
+\begin_inset Formula $RO_{2}H$
+\end_inset
+
+, so the reverse process may be neglected.
+ Furthermore, binding 
+\begin_inset Formula $O_{2}$
+\end_inset
+
+ is already uphill at any potential, and we are not likely to run this system
+ at potentials where binding an electron to 
+\begin_inset Formula $RO_{2}$
+\end_inset
+
+ will become anything but a transition state.
+ (Can I reproduce similar effects without invoking 
+\begin_inset Formula $RO_{2}^{-}$
+\end_inset
+
+? If the RDS transitioned between an electrochemical step and a chemical
+ step, we would see regions where changing the overpotential did not change
+ the current)
+\end_layout
+
+\begin_layout Standard
+ROH surface coverage: 
+\begin_inset Formula $\theta_{OH}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+R surface coverage: 
+\begin_inset Formula $\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $RO_{2}$
+\end_inset
+
+ surface coverage: 
+\begin_inset Formula $\theta_{O_{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $ROH\rightarrow R$
+\end_inset
+
+ : 
+\begin_inset Formula $r_{1}=k_{1}a_{H_{3}O^{+}}\theta_{OH}e^{-\alpha_{1}f\eta_{1}}=A\theta_{OH}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $ROH\leftarrow R$
+\end_inset
+
+ :
+\begin_inset Formula $r_{-1}=k_{-1}a_{H_{2}O}\theta e^{(1-\alpha_{1})f\eta_{1}}=B\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R\rightarrow RO_{2}$
+\end_inset
+
+ : 
+\begin_inset Formula $r_{2}=k_{2}P_{O_{2}}\theta=C\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R\leftarrow RO_{2}$
+\end_inset
+
+ : 
+\begin_inset Formula $r_{-2}=k_{-2}\theta_{O_{2}}=D\theta_{O_{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Assuming that all other steps reach equilibrium, 
+\begin_inset Formula $RO_{2}\rightarrow RO_{2}^{-}$
+\end_inset
+
+: 
+\begin_inset Formula $r_{3}=k_{3}\theta_{O_{2}}e^{-\alpha_{3}f\eta_{3}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, the approach is to solve for the surface coverage 
+\begin_inset Formula $\theta_{O_{2}}$
+\end_inset
+
+ and use that to find an overall approximate rate.
+ I am neglecting all elementary steps for the transition from 
+\begin_inset Formula $RO_{2}^{-}\rightarrow ROH$
+\end_inset
+
+ because they are all very downhill, and unlikely to be rate determining.
+\end_layout
+
+\begin_layout Standard
+Since the only species with appreciable surface coverage are ROH, R and
+ 
+\begin_inset Formula $RO_{2}$
+\end_inset
+
+, I can make the approximation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $1=\theta_{OH}+\theta+\theta_{O_{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Applying the steady state approximation (aka in = out for each species):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{1}=r_{-1}+r_{3}\rightarrow A\theta_{OH}=B\theta+E\theta_{O_{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}+r_{-1}=r_{1}+r_{-2}\rightarrow C\theta+B\theta=A\theta_{OH}+D\theta_{O_{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=r_{3}+r_{-2}\rightarrow C\theta=E\theta_{O_{2}}+D\theta_{O_{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Solving for 
+\begin_inset Formula $\theta_{O_{2}}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta=(E\theta_{O_{2}}+D\theta_{O_{2}})/C$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta_{OH}=(B\theta+E\theta_{O_{2}})/A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta_{OH}=(B(E\theta_{O_{2}}+D\theta_{O_{2}})/C+E\theta_{O_{2}})/A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta_{OH}=\frac{\theta_{O_{2}}(BE+BD+EC)}{AC}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Plugging into the surface coverage:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $1=\frac{\theta_{O_{2}}(BE+BD+EC)}{AC}+\frac{\theta_{O_{2}}(E+D)}{C}+\theta_{O_{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta_{O_{2}}=(\frac{BE+BD+EC+AE+AD+AC}{AC})^{-1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta_{O_{2}}=\frac{AC}{BE+BD+EC+AE+AD+AC}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{3}=\frac{EAC}{BE+BD+EC+AE+AD+AC}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+That's a little crazy, isn't it? The only real assumption made for it, though,
+ is that whatever happens after E happens really fast relative to everything
+ else.
+ If we assume E is small, we'll recover the later derivation.
+ I think I'm going to plug stuff in for this and then regret it.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $ROH\rightarrow R$
+\end_inset
+
+ : 
+\begin_inset Formula $A=k_{1}[H^{+}]e^{-\alpha_{1}f\eta_{1}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $ROH\leftarrow R$
+\end_inset
+
+ :
+\begin_inset Formula $B=k_{-1}e^{(1-\alpha_{1})f\eta_{1}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R\rightarrow RO_{2}$
+\end_inset
+
+ : 
+\begin_inset Formula $C=k_{2}P_{O_{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R\leftarrow RO_{2}$
+\end_inset
+
+ : 
+\begin_inset Formula $D=k_{-2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $RO_{2}\rightarrow RO_{2}^{-}$
+\end_inset
+
+: 
+\begin_inset Formula $E=k_{3}e^{-\alpha_{3}f\eta_{3}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{3}=\frac{k_{3}e^{-\alpha_{3}f\eta_{3}}k_{1}[H^{+}]e^{-\alpha_{1}f\eta_{1}}k_{2}P_{O_{2}}}{k_{-1}e^{(1-\alpha_{1})f\eta_{1}}k_{3}e^{-\alpha_{3}f\eta_{3}}+k_{-1}e^{(1-\alpha_{1})f\eta_{1}}k_{-2}+k_{3}e^{-\alpha_{3}f\eta_{3}}k_{2}P_{O_{2}}+k_{1}[H^{+}]e^{-\alpha_{1}f\eta_{1}}k_{3}e^{-\alpha_{3}f\eta_{3}}+k_{1}[H^{+}]e^{-\alpha_{1}f\eta_{1}}k_{-2}+k_{1}[H^{+}]e^{-\alpha_{1}f\eta_{1}}k_{2}P_{O_{2}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Not super useful.
+ So, I'm going to look at limiting BD, AD and AC below.
+ Here, I can focus on what goes down if BE, EC or AE are dominant over the
+ others.
+ In any event, the E term will cancel.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{3}=\frac{AC}{B+C+A}\rightarrow\frac{AC}{B}=\frac{k_{1}k_{2}}{k_{1}}P_{O_{2}}[H^{+}]e^{-f\eta_{1}},OR:\rightarrow A,OR:\rightarrow C$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Rad, okay so we've either got A or C are the RDS, in which we lose potential
+ dependence or have 1st order pH dependence w/ 120 mV/dec, which we don't
+ see.
+ The other option is 60 mV/dec with pH dependence, but we just don't see
+ the pH dependence develop as this occurs.
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+As an alternate derivation, we could make something of a 
+\begin_inset Quotes eld
+\end_inset
+
+pre-equilibrium
+\begin_inset Quotes erd
+\end_inset
+
+ assumption, essentially that r3 is very small relative to all the other
+ rates such that each individual step is essentially at equilibrium.
+ This instead leads to the following steps:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $A\theta_{OH}=B\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $C\theta=D\theta_{O_{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Solving for 
+\begin_inset Formula $\theta_{O_{2}}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta_{O_{2}}=\frac{AC}{AC+AD+BD}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Then plugging this into the above expression for 
+\begin_inset Formula $r_{3}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{3}=k_{3}e^{-\alpha_{3}f\eta_{3}}\left(\frac{k_{1}k_{2}a_{H_{3}O^{+}}p_{O_{2}}e^{-\alpha_{1}f\eta_{1}}}{k_{1}k_{2}a_{H_{3}O^{+}}p_{O_{2}}e^{-\alpha_{1}f\eta_{1}}+k_{1}k_{-2}a_{H_{3}O^{+}}e^{-\alpha_{1}f\eta_{1}}+k_{-1}k_{-2}a_{H_{2}O}e^{(1-\alpha_{1})f\eta_{1}}}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, under sufficiently high 
+\begin_inset Formula $p_{O_{2}}$
+\end_inset
+
+, it appears that both 
+\begin_inset Formula $O_{2}$
+\end_inset
+
+ and pH dependence disappears due to the leftmost term in the denominator.
+ Now, as we observe 
+\begin_inset Formula $O_{2}$
+\end_inset
+
+ dependence, I suspect the term 
+\begin_inset Formula $k_{-2}$
+\end_inset
+
+ in the other terms in the denominator swamp the leftmost one, as 
+\begin_inset Formula $O_{2}$
+\end_inset
+
+ binding is uphill in free energy.
+ In some sense, this is part of how binding 
+\begin_inset Formula $O_{2}$
+\end_inset
+
+ is part of the RDS.
+ This term I am now neglecting represents the amount of 
+\begin_inset Formula $O_{2}$
+\end_inset
+
+ surface coverage from 
+\begin_inset Formula $\theta_{O_{2}}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{3}=k_{3}e^{-\alpha_{3}f\eta_{3}}\left(\frac{k_{1}a_{H_{3}O^{+}}p_{O_{2}}e^{-\alpha_{1}f\eta_{1}}}{k_{1}k_{-2}a_{H_{3}O^{+}}e^{-\alpha_{1}f\eta_{1}}+k_{-1}k_{-2}a_{H_{2}O}e^{(1-\alpha_{1})f\eta_{1}}}\right)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It's important to note that the two remaining terms are a balance between
+ 
+\begin_inset Formula $\theta$
+\end_inset
+
+ and 
+\begin_inset Formula $\theta_{OH}$
+\end_inset
+
+.
+ I will assume each in turn is small, and see what sort of results that
+ provides.
+\end_layout
+
+\begin_layout Standard
+
+\family roman
+\series medium
+\shape up
+\size normal
+\emph off
+\bar no
+\strikeout off
+\uuline off
+\uwave off
+\noun off
+\color none
+\begin_inset Formula $\theta$
+\end_inset
+
+ dominant: 
+\begin_inset Formula $r_{3}=\frac{k_{2}k_{3}p_{O_{2}}e^{-\alpha_{3}f\eta_{3}}}{k_{-2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta_{OH}$
+\end_inset
+
+ dominant: 
+\begin_inset Formula $r_{3}=\frac{k_{1}k_{2}k_{3}a_{H_{3}O^{+}}p_{O_{2}}e^{-f\eta_{1}-\alpha_{3}f\eta_{3}}}{k_{-1}a_{H_{2}O}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{3}=\frac{k_{1}k_{2}k_{3}a_{H_{3}O^{+}}p_{O_{2}}e^{-f\eta_{1}-\alpha_{3}f\eta_{3}}}{k_{-1}a_{H_{2}O}}$
+\end_inset
+
+, given that 
+\begin_inset Formula $v=\eta_{1}+c_{1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Both cases see a 1st order 
+\begin_inset Formula $O_{2}$
+\end_inset
+
+ dependence, although the acidic one is slightly less (which is probably
+ due to the contribution from the term we neglected earlier), so that's
+ all good.
+ Furthermore, if we have dominant R coverage, we see a Tafel slope of 120,
+ whereas if we have dominant ROH coverage the slope becomes 40 (which is
+ probably what they were really seeing in their measurements).
+ Under acidic conditions, the system will remain covered primarily with
+ R, as ROH is less stable in acid.
+ Once we go to basic conditions, things get interesting: R is favored, up
+ until we hit 
+\begin_inset Formula $\eta_{1}$
+\end_inset
+
+, then it switches over to ROH coverage and the Tafel slope falls off.
+ In their experiements, this starts to happen right around 0.7 V vs.
+ RHE, which is precisely what we predict from our calculations.
+\end_layout
+
+\end_body
+\end_document

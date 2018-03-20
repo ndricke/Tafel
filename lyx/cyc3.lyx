@@ -1,0 +1,479 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass scrartcl
+\begin_preamble
+
+\end_preamble
+\options bibliography=totoc,index=totoc,BCOR7.5mm,titlepage,captions=tableheading
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing single
+\use_hyperref true
+\pdf_title "LyX's Math Manual"
+\pdf_author "LyX Team, Uwe Stöhr"
+\pdf_subject "LyX-documentation about math"
+\pdf_keywords "LyX, Mathed"
+\pdf_bookmarks true
+\pdf_bookmarksnumbered true
+\pdf_bookmarksopen true
+\pdf_bookmarksopenlevel 1
+\pdf_breaklinks false
+\pdf_pdfborder false
+\pdf_colorlinks true
+\pdf_backref false
+\pdf_pdfusetitle false
+\pdf_quoted_options "linkcolor=black, citecolor=black, urlcolor=blue, filecolor=blue, pdfpagelayout=OneColumn, pdfnewwindow=true, pdfstartview=XYZ, plainpages=false"
+\papersize a4paper
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\notefontcolor #0000ff
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 4
+\tocdepth 3
+\paragraph_separation skip
+\defskip medskip
+\quotes_language english
+\papercolumns 1
+\papersides 2
+\paperpagestyle plain
+\bullet 1 0 6 -1
+\bullet 2 2 35 -1
+\bullet 3 2 7 -1
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+\begin_inset Formula $R_{1}\leftrightharpoons R_{2}\leftrightharpoons R_{3}\leftrightharpoons$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r=\frac{k_{1}k_{2}k_{3}-k_{-1}k_{-2}k_{-3}}{k_{1}k_{2}+k_{1}k_{-2}+k_{2}k_{3}+k_{2}k_{-3}+k_{3}k_{1}+k_{3}k_{-1}+k_{-1}k_{-3}+k_{-2}k_{-3}+k_{-1}k_{-2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r=\frac{k_{B}T}{h}\frac{e^{-\Delta G_{r}/RT}-1}{e^{(T1-I1-\Delta G)/RT}+e^{(T2-I1-\Delta G)/RT}+e^{(T3-I1-\Delta G)/RT}+e^{(T1-I2)/RT}+e^{(T2-I2-\Delta G)/RT}+e^{(T3-I2-\Delta G)/RT}+e^{(T1-I3)/RT}+e^{(T2-I3)/RT}+e^{(T3-I3-\Delta G)/RT}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+From this we can look at it one term at a time and make assumptions to get
+ equations like:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r=\frac{k_{1}k_{2}k_{3}}{k_{-2}k_{-3}}$
+\end_inset
+
+ or 
+\begin_inset Formula $\frac{k_{1}k_{2}}{k_{2}+k_{1}+k_{-1}}$
+\end_inset
+
+ (
+\begin_inset Formula $k_{3}$
+\end_inset
+
+ very large) or 
+\begin_inset Formula $k_{1}$
+\end_inset
+
+(
+\begin_inset Formula $k_{1}$
+\end_inset
+
+ is exceptionally small)
+\end_layout
+
+\begin_layout Standard
+However, these terms should move in tandem with one another.
+ A change that affects one rate constant must affect at least one more.
+ Realistically, there are a few things we can modify:
+\end_layout
+
+\begin_layout Standard
+1.
+ Concentrations (O2, pH, ect.) that might accelerate a particular rate in
+ a specific direction, but probably affects several.
+ It has the neat feature for pH that all of them are at least likely to
+ point the same direction.
+\end_layout
+
+\begin_layout Standard
+2.
+ We can modify a barrier height.
+ A decrease in the height will increase both the forward and backward rate
+ constant for that transition.
+\end_layout
+
+\begin_layout Standard
+3.
+ We can modify an intermediate energy, which will increase the rates that
+ point toward that node.
+\end_layout
+
+\begin_layout Standard
+So how about we tackle 1, where we just append in some pH terms and look
+ at what it can do
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $k_{2}=Hk_{2}^{o}$
+\end_inset
+
+, 
+\begin_inset Formula $k_{3}=Hk_{3}^{o}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r=\frac{k_{1}k_{2}k_{3}H^{2}-k_{-1}k_{-2}k_{-3}}{k_{1}k_{2}H+k_{1}k_{-2}+k_{2}k_{3}H^{2}+k_{2}k_{-3}H+k_{3}k_{1}H+k_{3}k_{-1}H+k_{-1}k_{-3}+k_{-2}k_{-3}+k_{-1}k_{-2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r=\frac{k_{1}k_{2}k_{3}-k_{-1}k_{-2}k_{-3}[OH]^{2}}{k_{1}k_{2}+k_{1}k_{-2}[OH]+k_{2}k_{3}+k_{2}k_{-3}[OH]+k_{3}k_{1}+k_{3}k_{-1}+k_{-1}k_{-3}[OH]+k_{-2}k_{-3}[OH]^{2}+k_{-1}k_{-2}[OH]}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection*
+Game Plan
+\end_layout
+
+\begin_layout Standard
+Make up some data that reasonably fits the experimental data that Elise
+ and Alex each saw, and see whether we can reasonably fit this equation
+ to that data.
+\end_layout
+
+\begin_layout Standard
+So we kind of want to fit a somewhat weird function, which is we want to
+ know when this function is above a certain value.
+ We can't use 0 because that misses the fact that this function can spend
+ a long range of applied potential for a given pH at near 0 current
+\end_layout
+
+\begin_layout Standard
+What does it mean for the intermediate and TS energy to apply a pH or potential
+ dependence?
+\end_layout
+
+\begin_layout Standard
+For pH, either the forward or reverse reaction is generally considered to
+ have the rate dependence.
+ Realistically, both of them have a dependence...
+ but it's kind of complex? We have 2 processes that achieve the same products
+ from essentially interchangeable reactants, but they have different activation
+ energies.
+ Assumptions about those differing activation energies could change conclusions
+ about rate dependence on pH under certain conditions.
+ So what really makes a rate dependence linear? I don't think it can actually
+ be fully understood as just modifying the energy of the transition states
+ and intermediates; there is no limit to how much pH (or other species)
+ can theoretically modify the rate, so we'll have to include those effects
+ separately.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r=k[H^{+}]e^{-E_{A}/RT}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{-}=ke^{-E_{A}-\Delta G}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+How exactly does pH dependence propagate into the formalism that we've adopted?
+\end_layout
+
+\begin_layout Standard
+Pick a node, pick a branch.
+ 
+\begin_inset Formula $\exists$
+\end_inset
+
+ a unique tree that has arrows that end at that node and do not include
+ that branch.
+ Draw branches both directions (there is a backward and forward path, although
+ one may be null.
+ 
+\end_layout
+
+\begin_layout Subsection*
+The 3 Cycle
+\end_layout
+
+\begin_layout Standard
+This is getting complicated and annoying, so I'm going to switch to a specific
+ case for the moment.
+ Assuming that we have some chemical O2 bonding, followed by a pair of PCET
+ steps, I should be able to work out how the O2 and pH dependence looks.
+ Now, I've figured out how pH fits into the terms (sort of? there may be
+ a more general way to include both pH mechanisms with certain assumptions,
+ but we're going with the base mechanism for now).
+ 
+\end_layout
+
+\begin_layout Standard
+For the potential dependence, I guess it's a matter of figuring out which
+ trees have more forward than reverse potential dependencies?
+\end_layout
+
+\begin_layout Standard
+For some 0 potential and 0 pH, the reaction should have a specific set of
+ free energies and transition states.
+ We'll use those as inputs, along with directly mixing in potential and
+ pH dependence.
+ Now separate from pH dependence, potential dependence kind of goes both
+ ways.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $k=k^{o}e^{-\alpha f\eta}$
+\end_inset
+
+, 
+\begin_inset Formula $k_{-}=k_{-}^{o}e^{(1-\alpha)f\eta}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+So for this mechanism, we've got the first term that's also potential independen
+t, but 
+\begin_inset Formula $k_{\pm2}$
+\end_inset
+
+ and 
+\begin_inset Formula $k_{\pm3}$
+\end_inset
+
+ have this potential dependence (and we're lumping the reverse rate constant
+ with the pOH dependence).
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r=\frac{k_{1}k_{2}k_{3}e^{-fV}-k_{-1}k_{-2}k_{-3}e^{fV}[OH]^{2}}{k_{1}k_{2}e^{-0.5fV}+k_{1}k_{-2}e^{0.5fV}[OH]+k_{2}k_{3}^{-fV}+k_{2}k_{-3}[OH]+k_{3}k_{1}e^{-0.5fV}+k_{3}k_{-1}e^{-0.5fV}+k_{-1}k_{-3}e^{0.5fV}[OH]+k_{-2}k_{-3}e^{fV}[OH]^{2}+k_{-1}k_{-2}e^{0.5fV}[OH]}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The range of tafel slopes here is 0, 
+\begin_inset Formula $e^{-0.5fV}$
+\end_inset
+
+, 
+\begin_inset Formula $e^{-fV}$
+\end_inset
+
+, 
+\begin_inset Formula $e^{-1.5fV}$
+\end_inset
+
+, 
+\begin_inset Formula $e^{-2fV}$
+\end_inset
+
+, which translate to 
+\begin_inset Formula $\infty$
+\end_inset
+
+, 120, 60, 40, 30 mV/dec
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r=\frac{k_{1}k_{2}k_{3}e^{-2\alpha fV}-k_{-1}k_{-2}k_{-3}e^{2(1-\alpha)fV}[OH]^{2}}{k_{1}k_{2}e^{-\alpha f\eta_{1}}+k_{1}k_{-2}[OH]+k_{2}k_{3}+k_{2}k_{-3}[OH]+k_{3}k_{1}+k_{3}k_{-1}+k_{-1}k_{-3}[OH]+k_{-2}k_{-3}[OH]^{2}+k_{-1}k_{-2}[OH]}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I'm not sure I can totally do this with the intermediate-and-transition
+ state representation.
+ The cycle is inherently biased forward by the production of water from
+ 
+\begin_inset Formula $H_{2}$
+\end_inset
+
+ and 
+\begin_inset Formula $O_{2}$
+\end_inset
+
+ gas, meaning that even if an intermediate has a higher free energy, the
+ step leading there may have a negative free energy as it produces water.
+ The fix for this would be to include this energetic contribution in the
+ calculation.
+ --> Actually, this probably is where 
+\begin_inset Formula $\Delta G_{rxn}$
+\end_inset
+
+ comes into play, so I think I just need to go back and make sure that I'm
+ including this properly.
+ At the very least I should be able to co-opt it for purposes of the production
+ of water.
+\end_layout
+
+\begin_layout Standard
+I think rather than making some pretty fast and loose assumptions about
+ Butler-Volmer equation, it's probably possible to insert some rate constants
+ from some of SHS's work to get a more realistic picture.
+ This is probably a good place to start after hammering down some of the
+ initial dependencies.
+ 
+\end_layout
+
+\begin_layout Standard
+Still, given where I currently am, there should be some way to observe pH
+ dependencies.
+ Let's start with a test case that we understand: a base mediated mechanism.
+ I'm seeing some somewhat peculiar behavior that a base-mediated mechanism
+ has something like half-order mV/pH dependence.
+ I need to make sure I can recover nernstian pH dependence in a regime where
+ I expect it.
+\end_layout
+
+\begin_layout Standard
+How exactly do I plot Tafel slopes? We discuss the Tafel slope as being
+ in mV/dec, namely that there is some rise over run (of like 59 mV/dec for
+ current, or for pH, or 118 mV/dec ect).
+ So if we plot log(I) vs V, we should see that the plot resolves itself
+ into a series of lines, with some slope 
+\begin_inset Formula $\frac{\partial log(I)}{\partial V}$
+\end_inset
+
+.
+ However, we'd kind of prefer to have mV/dec instead of dec/mV, so if we
+ invert it we should obtain 
+\begin_inset Formula $\frac{\partial V}{\partial log(I)}=0.0118mV/dec*n$
+\end_inset
+
+, where n is a constant, often fractional.
+ We're interested in knowing this value as a function of potential, so we
+ should take the gradient 
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+aa
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\end_body
+\end_document

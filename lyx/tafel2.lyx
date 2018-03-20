@@ -1,0 +1,1294 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass revtex4
+\options aps,preprint
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Standard
+Tafel Analysis of Pycat System
+\end_layout
+
+\begin_layout Standard
+Nathan Ricke
+\end_layout
+
+\begin_layout Section
+Basic Tafel Electrochemistry
+\end_layout
+
+\begin_layout Standard
+Note: 
+\begin_inset Formula $f=\frac{F}{RT}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $F=96500Cmol^{-1}$
+\end_inset
+
+, 
+\begin_inset Formula $R=8.314Jmol^{-1}K^{-1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+At 298K, 
+\begin_inset Formula $f=38.949CJ^{-1}=38.949V^{-1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Butler-Volmer equation: 
+\begin_inset Formula $j=j_{0}\{exp(-\alpha f\eta)-exp[(1-\alpha)f\eta]\}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Overpotential: 
+\begin_inset Formula $\eta=\frac{RT}{\alpha F}ln(j_{0})-\frac{RT}{\alpha F}ln(j)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Or we could alternately think of it as: 
+\begin_inset Formula $\eta=E-E_{eq}$
+\end_inset
+
+, such that a positive overpotential value means that 
+\begin_inset Formula $E>E_{eq}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+From this, the 120mV/dec: 
+\begin_inset Formula $\frac{\partial\eta}{\partial log_{10}(j)}=\frac{2.303RT}{\alpha nF}=0.059V*\alpha^{-1}n^{-1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\frac{2.303RT}{F}=\frac{2.303}{f}\eqsim0.059V$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If 
+\begin_inset Formula $n=1$
+\end_inset
+
+ and 
+\begin_inset Formula $\alpha=0.5$
+\end_inset
+
+, then the slope is about 120mV/dec
+\end_layout
+
+\begin_layout Standard
+Ion-selective electrodes: 
+\begin_inset Formula $E=E^{0}-\frac{2.303RT}{F}pH$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+RHE: 
+\begin_inset Formula $E_{RHE}=E_{SHE}-0.059pH$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This value of 
+\begin_inset Formula $\frac{2.303RT}{F}$
+\end_inset
+
+ is what leads to 60 mV/dec
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $pH=-log_{10}([H^{+}])$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $pH=\frac{-E_{H2/H+vs.SCE}-E_{SCE}}{2.303RT/F}$
+\end_inset
+
+ -->Universal dependence of hydrogen oxidation and evolution reaction activity
+ of platinum-group metals on pH and hydrogen binding.
+ Not sure how this relates yet, but it seems useful at the moment.
+ SCE: saturated calomel electrode
+\end_layout
+
+\begin_layout Subsubsection
+Nernst Equation
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\Delta G^{o}=-nFE^{o}$
+\end_inset
+
+ ; 
+\begin_inset Formula $\Delta G=-nFE$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\Delta G=\Delta G^{o}+RTln(Q)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $-nFE=-nFE^{o}+RTln(Q)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $E=E^{o}-\frac{RT}{nF}ln(Q)$
+\end_inset
+
+; 
+\begin_inset Formula $E=E^{o}-\frac{0.059V}{n}log_{10}Q$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+For pH:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $E_{H+/H2}=E_{H+/H2}^{o}+\frac{RT}{nF}ln(\frac{[H^{+}]^{2}}{P_{H_{2}}})$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $E=E^{o}-(0.059/2)*2pH=-0.059pH$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsubsection
+Hams-Schiffer PCET
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $k=\sum_{\mu}P_{\mu}\sum_{\nu}\frac{|V_{\mu\nu}|^{2}}{\hbar}\sqrt{\frac{\pi}{\lambda_{\mu\nu}k_{B}T}}exp\left[-\frac{(\Delta G_{\mu\nu}^{0}+\lambda_{\mu\nu})^{2}}{4\lambda_{\mu\nu}k_{B}T}\right]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\Delta G_{\mu\nu}(x,\varepsilon)=\Delta U_{\mu\nu}+k_{B}Tln(Q^{II}/Q^{I})+\varepsilon-e\eta+e\phi_{s}(x)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\Delta U_{\mu\nu}$
+\end_inset
+
+= free energy difference b/w product and reaction
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $Q^{I}$
+\end_inset
+
+ and 
+\begin_inset Formula $Q^{II}$
+\end_inset
+
+ are total partition functions of the reduced and oxidized species, respectively.
+ 
+\begin_inset Formula $k_{B}Tln(Q^{II}/Q^{I})=-\Delta U_{00}$
+\end_inset
+
+ only when the ground vibronic states are included in the partition function
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\phi_{s}(x)$
+\end_inset
+
+ is the potential in solution at a distance x from the electrode surface
+ due to electrical double layer formed by the supporting electrolyte ions
+ in the absence of the solute complex
+\end_layout
+
+\begin_layout Section
+Tafel Microkinetics Paper
+\end_layout
+
+\begin_layout Standard
+So I'm becoming convinced that what this SciRep did is wrong.
+ I could cite particular equations, but there is one specifically important
+ aspect that any PCET is assumed first order w.r.t.
+ 
+\begin_inset Formula $a_{H_{3}O^{+}}$
+\end_inset
+
+ for any of the reactions listed.
+ 
+\end_layout
+
+\begin_layout Standard
+A simple example would be: 
+\begin_inset Formula $j=ka_{H_{3}O^{+}}exp(-\alpha f\eta)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Converting the potential from SHE to RHE, we should be able to cancel the
+ first order dependence such that from the RHE perspective the overpotential
+ doesn't change.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $j=ka_{H_{3}O^{+}}exp(-\alpha f\eta)$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $j=ka_{H_{3}O^{+}}exp(-\alpha f(E_{SHE}-E_{eq}))$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $j=ka_{H_{3}O^{+}}exp(-\alpha f(E_{RHE}-(E_{eq}+0.059pH)))=j_{0}exp(-\alpha f(\eta_{RHE}-0.059pH))$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $j=ka_{H_{3}O^{+}}exp(-\alpha f(\eta_{RHE}-\frac{2.303}{f}pH))$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $j=ka_{H_{3}O^{+}}exp(2.303\alpha pH-\alpha f(\eta_{RHE}))$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $j=k10^{-pH}exp(2.303\alpha pH-\alpha f(\eta_{RHE}))$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $j=kexp(-2.303pH+2.303\alpha pH-\alpha f(\eta_{RHE}))$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, this was kind of weird because 
+\begin_inset Formula $\alpha$
+\end_inset
+
+ is supposed to typically have a value of 0.5, but the conversion didn't
+ cancel the pH dependence unless 
+\begin_inset Formula $\alpha=1$
+\end_inset
+
+.
+ I went back to investigate the source of 
+\begin_inset Formula $\alpha$
+\end_inset
+
+, and it comes from the fact that the barrier has a dependence on the free
+ energy curves, but the barrier isn't shifted by the same amount as the
+ free energy curve.
+ When the 2 curves are at equal height, the barrier gets shifted by half
+ as much as the shift of one parabola.
+ If it's a very uphill reaction, on the other hand, the barrier purely thermodyn
+amic, and 
+\begin_inset Formula $\alpha=1$
+\end_inset
+
+, at which point there would be the first order dependence on 
+\begin_inset Formula $a_{H_{3}O^{+}}$
+\end_inset
+
+ that they assumed.
+ This raises a contradiction, however: they assumed both that 
+\begin_inset Formula $\alpha=0.5$
+\end_inset
+
+ and that there is a first order dependence on 
+\begin_inset Formula $a_{H_{3}O^{+}}$
+\end_inset
+
+, and it seems like both of them can't be true.
+\end_layout
+
+\begin_layout Standard
+Part of this seems to rise from the confusion between a process at equilibrium
+ and a process at steady-state.
+ The cycle is indeed at steady-state, but due to the constant churning of
+ the cycle the individual reactions are not in standard thermodynamic equilibriu
+m with one another.
+ We are therefore correct to assume concentrations are constant, but incorrect
+ to assume the same microkinetic model as non-electrochemical processes
+ at thermal equilibrium.
+\end_layout
+
+\begin_layout Section
+Inner Sphere Mechanism
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $ROH\rightleftarrows R\rightleftarrows RO_{2}^{-}\rightarrow\rightarrow ROH$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I'm going to assume that the electron transfer to 
+\begin_inset Formula $RO_{2}$
+\end_inset
+
+ is the rate determining step, at least nominally.
+ Once we have the species 
+\begin_inset Formula $RO_{2}^{-}$
+\end_inset
+
+, it is incredibly downhill (>1.0eV) to convert to 
+\begin_inset Formula $RO_{2}H$
+\end_inset
+
+, so the reverse process may be neglected.
+ Furthermore, binding 
+\begin_inset Formula $O_{2}$
+\end_inset
+
+ is already uphill at any potential, and we are not likely to run this system
+ at potentials where binding an electron to 
+\begin_inset Formula $RO_{2}$
+\end_inset
+
+ will become anything but a transition state.
+ (Can I reproduce similar effects without invoking 
+\begin_inset Formula $RO_{2}^{-}$
+\end_inset
+
+? If the RDS transitioned between an electrochemical step and a chemical
+ step, we would see regions where changing the overpotential did not change
+ the current)
+\end_layout
+
+\begin_layout Standard
+ROH surface coverage: 
+\begin_inset Formula $\theta_{OH}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+R surface coverage: 
+\begin_inset Formula $\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $RO_{2}$
+\end_inset
+
+ surface coverage: 
+\begin_inset Formula $\theta_{O_{2}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $ROH\rightarrow R$
+\end_inset
+
+ : 
+\begin_inset Formula $r_{1}=k_{1}[H^{+}]e^{-\alpha_{1}f\eta_{1}}\theta_{OH}=A\theta_{OH}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $ROH\leftarrow R$
+\end_inset
+
+ :
+\begin_inset Formula $r_{-1}=k_{-1}e^{(1-\alpha_{1})f\eta_{1}}\theta=B\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R\rightarrow RO_{2}^{-}$
+\end_inset
+
+ : 
+\begin_inset Formula $r_{2}=k_{2}[O_{2}]e^{-\alpha_{2}f\eta_{2}}\theta=C\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I am neglecting all elementary steps for the transition from 
+\begin_inset Formula $RO_{2}^{-}\rightarrow ROH$
+\end_inset
+
+ because they are all very downhill, and unlikely to be rate determining.
+\end_layout
+
+\begin_layout Standard
+Since the only species with appreciable surface coverage are ROH and R,
+ I can make the approximation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $1=\theta_{OH}+\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+With the steady state approximation:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{1}=r_{-1}+r_{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+(there are only 3 terms because we are neglecting the rate of 
+\begin_inset Formula $ROH\rightarrow RO^{-}$
+\end_inset
+
+ because the thermodynamic barrier is huge)
+\end_layout
+
+\begin_layout Standard
+Solving for 
+\begin_inset Formula $\theta$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $A\theta_{OH}=B\theta+C\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta_{OH}=\frac{B+C}{A}\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Plug into 
+\begin_inset Formula $1=\theta_{OH}+\theta$
+\end_inset
+
+ :
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $1=(\frac{B+C}{A}+1)\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta=(\frac{B+C}{A}+1)^{-1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta=(\frac{B+C+A}{A})^{-1}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta=\frac{A}{A+B+C}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Then plugging this into the above expression for 
+\begin_inset Formula $r_{2}$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=\frac{AC}{A+B+C}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=\frac{k_{1}k_{2}[H^{+}][O_{2}]e^{-f(\alpha_{1}\eta_{1}+\alpha_{2}\eta_{2})}}{k_{1}[H^{+}]e^{-\alpha_{1}f\eta_{1}}+k_{-1}e^{(1-\alpha_{1})f\eta_{1}}+k_{2}[O_{2}]e^{-\alpha_{2}f\eta_{2}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Note Comment
+status open
+
+\begin_layout Plain Layout
+This next part is from before I realized that the pH dependences wouldn't
+ disappear on the transition between SHE and RHE.
+ I'm still not sure we have the complete story.
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Absorbing 
+\begin_inset Formula $[H^{+}]$
+\end_inset
+
+ dependence into the exponents, pH should look just like a shift in the
+ overpotentials
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=\frac{k_{1}k_{2}10^{-pH}[O_{2}]e^{-f(\alpha_{1}\eta_{1}+\alpha_{2}\eta_{2})}}{k_{-1}(K_{1}10^{-pH}e^{-\alpha_{1}f\eta_{1}}+e^{(1-\alpha_{1})f\eta_{1}})+k_{2}[O_{2}]e^{-\alpha_{2}f\eta_{2}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=\frac{k_{1}k_{2}[O_{2}]e^{-2.303pH-f(\alpha_{1}\eta_{1}+\alpha_{2}\eta_{2})}}{k_{1}e^{-2.303pH-\alpha_{1}f\eta_{1}}+k_{-1}e^{(1-\alpha_{1})f\eta_{1}}+k_{2}[O_{2}]e^{-\alpha_{2}f\eta_{2}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Factoring out 
+\begin_inset Formula $k_{2}$
+\end_inset
+
+, because we can (and this should make the equation simpler to fit and such)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=k_{1}\frac{[O_{2}]e^{-2.303pH-f(\alpha_{1}\eta_{1}+\alpha_{2}\eta_{2})}}{\frac{k_{1}}{k_{2}}e^{-2.303pH-\alpha_{1}f\eta_{1}}+\frac{k_{-1}}{k_{2}}e^{(1-\alpha_{1})f\eta_{1}}+[O_{2}]e^{-\alpha_{2}f\eta_{2}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, it will probably also be a little easier to work with our experimental
+ data and such if we write everything in terms of RHE.
+ To do this properly, I'm going to need to assume that all of the symmetry
+ coefficients are 0.5.
+ This assumption should be close to correct for steps that are close to
+ 0 overpotential
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=k_{1}\frac{[O_{2}]e^{-2.303pH-0.5f(\eta_{1}+\eta_{2})}}{\frac{k_{1}}{k_{2}}e^{-2.303pH-0.5f\eta_{1}}+\frac{k_{-1}}{k_{2}}e^{0.5f\eta_{1}}+[O_{2}]e^{-0.5f\eta_{2}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Inner Sphere with Equilibrium constants
+\end_layout
+
+\begin_layout Standard
+It initially seemed a little odd that 
+\begin_inset Formula $C$
+\end_inset
+
+ is related to both the RDS and surface coverage, but I think that's because
+ this is the SSA rather than some pre-equilibrium approximation that I think
+ I was making previously.
+ Inevitably, if the rate of 
+\begin_inset Formula $C$
+\end_inset
+
+ is very large, the total rate would just simplify to 
+\begin_inset Formula $A$
+\end_inset
+
+.
+ This makes sense because that would indicate that any 
+\begin_inset Formula $R$
+\end_inset
+
+ generated would be immediately converted to 
+\begin_inset Formula $RO_{2}^{-}$
+\end_inset
+
+, and we are neglecting the reverse of that process.
+\end_layout
+
+\begin_layout Standard
+It would be nice to express all but one rate constant as an equilibrium
+ constant, as we have an easier method for calculating 
+\begin_inset Formula $\Delta G_{rxn}$
+\end_inset
+
+.
+ I'm not sure this is possible, though, as the parameters for equilibrium
+ should depend on more than just concentrations and 
+\begin_inset Formula $k_{1},k_{2},ect.$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $K_{1}=\frac{k_{1}}{k_{-1}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=\frac{k_{1}k_{2}[H^{+}][O_{2}]e^{-(\alpha_{1}+\alpha_{2})f\eta_{1}}}{k_{-1}(K_{1}[H^{+}]e^{-\alpha_{1}f\eta_{1}}+e^{(1-\alpha_{1})f\eta_{1}})+k_{2}[O_{2}]e^{-\alpha_{2}f\eta_{2}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I'm not sure if this is further reducible without making the kinds of approximat
+ions that we aren't yet interested in making.
+\end_layout
+
+\begin_layout Subsection
+RO2- reversible to R
+\end_layout
+
+\begin_layout Standard
+Alternately, we may find that the process of converting 
+\begin_inset Formula $RO_{2}^{-}\rightarrow RO_{2}H$
+\end_inset
+
+ is slow relative to the interconversion 
+\begin_inset Formula $R\rightleftarrows RO_{2}^{-}$
+\end_inset
+
+, so we would need to explicitly include that step.
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $ROH\rightarrow R$
+\end_inset
+
+ : 
+\begin_inset Formula $r_{1}=k_{1}[H^{+}]e^{-\alpha_{1}f\eta_{1}}\theta_{OH}=A\theta_{OH}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $ROH\leftarrow R$
+\end_inset
+
+ :
+\begin_inset Formula $r_{-1}=k_{-1}a_{H_{2}O}e^{(1-\alpha_{1})f\eta_{1}}\theta=B\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R\rightarrow RO_{2}^{-}$
+\end_inset
+
+ : 
+\begin_inset Formula $r_{2}=k_{2}[O_{2}^{-}]e^{-\alpha_{2}f\eta_{2}}\theta=C\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R\leftarrow RO_{2}^{-}$
+\end_inset
+
+ : 
+\begin_inset Formula $r_{2}=k_{-2}e^{(1-\alpha_{2})f\eta_{2}}\theta_{O_{2}^{-}}=D\theta_{O_{2}^{-}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $RO_{2}^{-}\rightarrow RO_{2}H$
+\end_inset
+
+: 
+\begin_inset Formula $r_{3}=k_{3}[H^{+}]\theta_{O_{2}^{-}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It seems likely that this last step may be neglected because it would include
+ an explicit first order pH dependence if it participated at all in the
+ rate-limiting process, which is not observed experimentally.
+ Relevance of pH dependence seems likely to occur from 
+\begin_inset Formula $ROH$
+\end_inset
+
+ on its own, so we don't see much motivation for considering the mechanism
+ rigorously in this manner.
+ The last step would also not be potential dependent, which would also be
+ unexpected.
+\end_layout
+
+\begin_layout Section
+Outer Sphere Mechanism
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $O_{2}\rightleftarrows O_{2}^{-}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $ROH\rightleftarrows R\rightarrow RO_{2}^{-}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $O_{2}\rightarrow O_{2}^{-}$
+\end_inset
+
+: 
+\begin_inset Formula $r_{0}=k_{0}[O_{2}]e^{-\alpha_{0}f\eta_{0}}=X[O_{2}]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $O_{2}\leftarrow O_{2}^{-}$
+\end_inset
+
+: 
+\begin_inset Formula $r_{-0}=k_{-0}[O_{2}^{-}]e^{(1-\alpha_{0})f\eta_{0}}=Y[O_{2}^{-}]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $ROH\rightarrow R$
+\end_inset
+
+ : 
+\begin_inset Formula $r_{1}=k_{1}[H^{+}]e^{-\alpha_{1}f\eta_{1}}\theta_{OH}=A\theta_{OH}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $ROH\leftarrow R$
+\end_inset
+
+ :
+\begin_inset Formula $r_{-1}=k_{-1}a_{H_{2}O}e^{(1-\alpha_{1})f\eta_{1}}\theta=B\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R\rightarrow RO_{2}^{-}$
+\end_inset
+
+ : 
+\begin_inset Formula $r_{2}=k_{2}[O_{2}^{-}]\theta=C\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Now, we would generally prefer to express 
+\begin_inset Formula $[O_{2}^{-}]$
+\end_inset
+
+ for the following steps in terms of 
+\begin_inset Formula $[O_{2}]$
+\end_inset
+
+, or perhaps some total of each, 
+\begin_inset Formula $[O_{2}]_{0}=[O_{2}^{-}]+[O_{2}]$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+By SSA: 
+\begin_inset Formula $r_{0}=r_{-0}+r_{2}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $X[O_{2}]=Y[O_{2}^{-}]+k_{2}[O_{2}^{-}]\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[O_{2}^{-}]=\frac{X[O_{2}]}{Y+k_{2}\theta}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $[O_{2}^{-}]=[O_{2}]\frac{k_{0}e^{-\alpha_{0}f\eta_{0}}}{k_{-0}e^{(1-\alpha_{0})f\eta_{0}}+k_{2}\theta}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+As before, we have:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $1=\theta_{OH}+\theta$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{1}=r_{-1}+r_{2}$
+\end_inset
+
+;
+\end_layout
+
+\begin_layout Standard
+The structure of this derivation has not changed in terms of A, B and C,
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $\theta=\frac{A}{A+B+C}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=\frac{AC}{A+B+C}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+But the term for C has changed slightly, yielding:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=\frac{k_{1}k_{2}[H^{+}][O_{2}^{-}]e^{-\alpha_{1}f\eta_{1}}}{k_{1}[H^{+}]e^{-\alpha_{1}f\eta_{1}}+k_{-1}e^{(1-\alpha_{1})f\eta_{1}}+k_{2}[O_{2}^{-}]}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Plugging in for 
+\begin_inset Formula $[O_{2}^{-}]$
+\end_inset
+
+:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=\frac{k_{1}k_{2}[H^{+}][O_{2}]\frac{k_{0}e^{-f(\alpha_{1}\eta_{1}+\alpha_{0}\eta_{0})}}{k_{-0}e^{(1-\alpha_{0})f\eta_{0}}+k_{2}\theta}}{k_{1}[H^{+}]e^{-\alpha_{1}f\eta_{1}}+k_{-1}e^{(1-\alpha_{1})f\eta_{1}}+k_{2}[O_{2}]\frac{k_{0}e^{-\alpha_{0}f\eta_{0}}}{k_{-0}e^{(1-\alpha_{0})f\eta_{0}}+k_{2}\theta}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=\frac{k_{0}k_{1}k_{2}[H^{+}][O_{2}]e^{-f(\alpha_{1}\eta_{1}+\alpha_{0}\eta_{0})}}{(k_{-0}e^{(1-\alpha_{0})f\eta_{0}}+k_{2}\theta)(k_{1}[H^{+}]e^{-\alpha_{1}f\eta_{1}}+k_{-1}e^{(1-\alpha_{1})f\eta_{1}})+k_{2}[O_{2}]k_{0}e^{-\alpha_{0}f\eta_{0}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It will likely be easier to use the form in terms of A, B and C for computationa
+l purposes, but for now this will be useful for assessing limiting behavior.
+\end_layout
+
+\begin_layout Standard
+It will likely be easier to use the form in terms of A, B and C for computationa
+l purposes, but for now this will be useful for assessing limiting behavior.
+ This situation is essentially the same as before, with the caveat that
+ now the process of generating superoxide may also be rate-limiting.
+ 
+\end_layout
+
+\begin_layout Standard
+If C is super-mega-unreasonably large, then:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=k_{1}[H^{+}]e^{-\alpha_{1}f\eta_{0}}$
+\end_inset
+
+, which is just 
+\begin_inset Formula $r_{2}=A$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This makes sense because it would just be like saying 
+\begin_inset Formula $ROH\rightleftarrows R\rightarrow RO_{2}^{-}$
+\end_inset
+
+ instead becomes 
+\begin_inset Formula $ROH\rightarrow RO_{2}^{-}$
+\end_inset
+
+.
+ 
+\end_layout
+
+\begin_layout Standard
+If B is large (or the back conversion to ROH is very fast):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=\frac{AC}{B}=\frac{k_{1}k_{2}[H^{+}][O_{2}]\frac{k_{0}e^{-f(\alpha_{1}\eta_{1}+\alpha_{0}\eta_{0})}}{k_{-0}e^{(1-\alpha_{0})f\eta_{0}}+k_{2}\theta}}{k_{-1}e^{(1-\alpha_{1})f\eta_{1}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+I suppose in this circumstance we need to generate R, then we need to turn
+ it to RO2- before it can back convert.
+ Regardless of the potential, if this dominates we would see both a pH and
+ O2 dependence.
+\end_layout
+
+\begin_layout Standard
+If A is large, aka the system sits with R as the rest state (as ROH to R
+ is much faster than the other processes):
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=\frac{k_{2}[O_{2}]\frac{k_{0}e^{-f(\alpha_{1}\eta_{1}+\alpha_{0}\eta_{0})}}{k_{-0}e^{(1-\alpha_{0})f\eta_{0}}+k_{2}\theta}}{e^{-\alpha_{1}f\eta_{1}}}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=k_{0}k_{2}[O_{2}]\frac{e^{-f\alpha_{0}\eta_{0}}}{k_{-0}e^{(1-\alpha_{0})f\eta_{0}}+k_{2}\theta}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This has 2 possibilities fringe behavior:
+\end_layout
+
+\begin_layout Standard
+1.
+ The assumption that the forward reaction for r2 is much faster than the
+ back-conversion from O2- to O2
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=k_{0}[O_{2}]\frac{e^{-f\alpha_{0}\eta_{0}}}{\theta}$
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Yikes, okay I'm not sure how to deal with 
+\begin_inset Formula $\theta$
+\end_inset
+
+ precisely right now.
+ But, it is important to note that it's got 1st order O2 dependence, and
+ it looks like it's just a 1 electron process.
+ Now, this assumption basically already assumes that 
+\begin_inset Formula $\theta$
+\end_inset
+
+ is 1, because R is the rest state, then this would simplify to:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=k_{0}[O_{2}]e^{-f\alpha_{0}\eta_{0}}$
+\end_inset
+
+, TAFEL SLOPE: 120 mV per decade
+\end_layout
+
+\begin_layout Standard
+The other is: 2.
+ The assumption that the interconversion between O2 and O2- is much faster
+ than the forward reaction r2.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $r_{2}=\frac{k_{0}k_{2}}{k_{-0}}[O_{2}]e^{-f\eta_{0}}$
+\end_inset
+
+, TAFEL SLOPE: 60 mV per decade
+\end_layout
+
+\begin_layout Standard
+Hey, that kind of looks like the Tafel behavior we expect, doesn't it? I
+ guess there are probably a lot of ways to recover that, given different
+ assumptions about the mechanism.
+ Now, an important component of the experimental data is that there is a
+ transition in the Tafel slope.
+ Here, this should happen when the term 
+\begin_inset Formula $k_{-0}e^{(1-\alpha_{0})f\eta_{0}}$
+\end_inset
+
+ becomes large relative to 
+\begin_inset Formula $k_{2}$
+\end_inset
+
+, which would transition at a specific applied potential.
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\begin_layout Standard
+a
+\end_layout
+
+\end_body
+\end_document
