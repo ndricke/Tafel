@@ -38,7 +38,7 @@ fig, (ax0,ax1) = plt.subplots(nrows=2)
 ax0.plot(pH,V_list)
 ax1.plot(pH,gradV)
 
-print gradV
+print(gradV)
 
 ax1.set_ylim([-0.2,0.])
 

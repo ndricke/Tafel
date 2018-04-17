@@ -15,27 +15,17 @@ within a separate file that we can import here.
 Now, one of the things we would be interested in fitting is the pH relationships
 """
 
+import sys
+
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy as sc
 import scipy.optimize as opt
+import pandas as pd
 
 import cycleG
+from BV import BV, MultiBV
 
-"""
-The simplest electrochemical mechanism, the Butler-Volmer reversible 1-step electron transfer with pH dependence
-This will be used for testing simTafel, as well as for subsequently ensuring we can fit the data for the simplest case
-"""
-class BV(object):
-    def __init__(s, pH=7., fwd_scale=100., ep=10.**-4):
-        s.f = 38.684
-        s.pH = pH
-        s.ep = ep #what is the smallest point where they can observe the current?
-        s.fwd_scale = fwd_scale
-
-    def rate(s, V): #this hopefully allows the user to scan over pH (or f if temperature were interesting?)
-        return s.fwd_scale*10**(-s.pH)*np.exp(-0.5*s.f*V) - np.exp(0.5*s.f*V)
-#        return H*np.exp(-0.5*f*V)# - np.exp(0.5*f*V)
 
 
 
@@ -43,8 +33,7 @@ class BV(object):
 Simulates tafel data for a single electrochemical mechanism, specified in __init__
 The parameters of this mechanism should be set elsewhere, then fed to this class
 """
-
-class simTafel(object):
+class SimTafel(object):
     
     def __init__(s, elec_mech, ep=10.0**-4):
         s.elec_mech = elec_mech #class that contains mechanism + rate equation for a proposed mechanistic graph
@@ -69,23 +58,73 @@ class simTafel(object):
         return onsetV_list, gradV
 
 
+class FitTafel(object):
+
+    def __init__(s, elec_data):
+        s.elec_data = elec_data
+
+    #Fit the variables for a given mechanism to elec_data
+    def fitMech(s, elec_mech):
+        pass
+        
+
+
 
 if __name__ == "__main__":
     
-    bv = BV()
+    bv = BV(a=15,b=82.2)
 
 
 #    V = np.linspace(-0.2,0.2,400)
 #    r = bv.rate(V)
-#
+#    popt, pcov = opt.curve_fit(bv.fitRate, V, r, p0=(1.0,1.0))    
+#    print(popt)
+
 ##    plt.plot(V,np.log(r))
 #    plt.plot(V,r)
 
-    pH_dom = np.linspace(3,14,400)
-#    simBV = simTafel(bv, ep=0)
-    simBV = simTafel(bv)
+
+    dom = 400
+    pH_dom = np.linspace(3,14,dom)
+##    simBV = SimTafel(bv, ep=0)
+    simBV = SimTafel(bv)
     onset_Vs, grad_Vs = simBV.OnsetScanPH(pH_dom)
 
-    plt.plot(pH_dom, onset_Vs)
+    noise = (np.random.rand(dom)-0.5)*0.05
+    onV_noise = onset_Vs + noise
+
+#    popt, pcov = opt.curve_fit(bv.fitOnset, pH_dom, onset_Vs, p0=(1.,1.))    
+    popt, pcov = opt.curve_fit(bv.fitOnset, pH_dom, onV_noise, p0=(1.,1.))    
+    print(popt)
+
+    bv2 = BV(a=popt[0], b=popt[1])
+    simBV2 = SimTafel(bv2)
+    onset_Vs2, grad_Vs2 = simBV2.OnsetScanPH(pH_dom)
+
+    
+
+#    d = {'pH':pH_dom, 'Onset Potential':onset_Vs}
+#    pH_onsetV = pd.DataFrame(d)
+#    print(pH_onsetV)
+
+    plt.plot(pH_dom, onV_noise)
+    plt.plot(pH_dom, onset_Vs2)
 
     plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
