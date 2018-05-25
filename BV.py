@@ -2,8 +2,7 @@ import scipy as sc
 import scipy.optimize as opt
 import numpy as np
 
-"""
-The simplest electrochemical mechanism, the Butler-Volmer reversible 1-step electron transfer with pH dependence
+"""The simplest electrochemical mechanism, the Butler-Volmer reversible 1-step electron transfer with pH dependence
 This will be used for testing simTafel, as well as for subsequently ensuring we can fit the data for the simplest case
 """
 class BV(object):
@@ -42,14 +41,6 @@ class BV(object):
         onsetV_list.pop(0) #remove the first element, 0, which was only an initial guess
         return onsetV_list
 
-class Mechanism(object):
-"""
-concentrations: dictionary of the concentrations of non-intermediate species (pH, [O2], ect)
-rate_constants: dictionary of the rate constants for every step in the reaction network
-ep: for finding pH/concentration dependence, we must assume an observed constant current with varying concentration
-"""
-    def __init__(s, concentrations, rate_constants, ep):
-
 
 ##Butler-Volmer, with reversible mechanism
 class MultiBV(object):
@@ -83,3 +74,39 @@ class MultiBV(object):
             onsetV_list.append(V_root.x[0])
         onsetV_list.pop(0) #remove the first element, 0, which was only an initial guess
         return onsetV_list
+
+
+if __name__ == "__main__":
+    
+
+    m = Mechanism()
+    bv = BV()
+    print(m)
+    print(bv)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
