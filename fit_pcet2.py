@@ -77,11 +77,11 @@ res = opt.minimize( fitter.evalfit, x0=k_list, bounds=k_bounds)
 #res = opt.minimize(rosen, x0)
 print(res.x)
 
-#plt.scatter(data[:,0], data[:,1])
-#plt.plot(mech.lograte(V_dom), V_dom)
-#plt.ylabel('V')
-#plt.xlabel('log(J)')
-#plt.show()
+plt.scatter(data[:,0], data[:,1])
+plt.plot(mech.lograte(V_dom), V_dom)
+plt.ylabel('V')
+plt.xlabel('log(J)')
+plt.show()
 
 
 

@@ -6,6 +6,11 @@ import matplotlib.pyplot as plt
 import ElecMech
 import SimTafel
 
+import matplotlib
+
+matplotlib.rcParams.update({'font.size': 22})
+
+
 #fun = lambda x: (x[0] - 1)**2 + (x[1] - 2.5)**2
 #cons = ({'type': 'ineq', 'fun': lambda x: x[0] - 2 * x[1] + 2})
 #bnds = ((0, None), (0,None))
@@ -83,15 +88,25 @@ print(res.success)
 mech.setConsts(res.x)
 print(fit.evalfit(res.x))
 
-
 #plt.plot(V_dom, mech.rate(V_dom))
-plt.plot(V_dom_exp, mech.rate(V_dom_exp))
+#plt.scatter(data[:,1], J10_data)
 
-plt.scatter(data[:,1], J10_data)
-plt.xlabel('V')
-plt.ylabel('J')
+fig, ax = plt.subplots()
+fig.set_size_inches(7,7,forward=True)
+plt.plot(np.log10(mech.rate(V_dom)), -1.*V_dom, linewidth=3.0)
+plt.scatter(np.log10(J10_data), -1.*data[:,1], color='red', s=100)
+plt.xlabel(r'log(J) (mA/cm$^2$)')
+plt.ylabel('-E (V)')
+plt.xlim([np.log10(J10_data[0])-0.01, np.log10(J10_data[-1])+0.01])
 
-plt.show()
+#plt.plot(V_dom_exp, mech.rate(V_dom_exp))
+#plt.scatter(data[:,1], J10_data)
+#plt.xlabel('V')
+#plt.ylabel('J')
+
+#plt.show()
+plt.savefig("Krishtalik_data_fit.png", transparent=True, bbox_inches='tight', pad_inches=0.02)
+
 
 
 
