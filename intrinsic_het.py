@@ -27,20 +27,29 @@ class DisorderHER(ElecMech.ElecMech):
         self.kn2 = ks[3]
 
     @property
+    def pH(self):
+        return self._pH
+
+    @pH.setter
+    def pH(self, value):
+        self.H = 10**(-1.*value)
+        self._pH = value
+
+    @property
     def sig(self):
         return self._sig
 
     @sig.setter
     def sig(self, value):
         self.sig2 = value*value
-        dEspan = self.sig2 * 10
+        dEspan = self.sig * 10 + self.sig2*200 #so the numerical integration works over a range of values of sig
         self.dE_range = [-1.*dEspan, dEspan]
         self._sig = value
 
 
-    def baseRate(self, V):
-        k1, kn1 = self.PCET(ks=[self.k1, self.kn1], V=V, H=self.H, mech='acid')
-        k2, kn2 = self.PCET(ks=[self.k2, self.kn2], V=V, H=self.H, mech='acid')
+    def baseRate(self, V, dE=0.):
+        k1, kn1 = self.PCET(ks=[self.k1, self.kn1], V=V+dE, H=self.H, mech='acid')
+        k2, kn2 = self.PCET(ks=[self.k2, self.kn2], V=V-dE, H=self.H, mech='acid')
         return self.rev2(k1,k2,kn1,kn2)
 
     def probE(self, dE):
@@ -49,7 +58,7 @@ class DisorderHER(ElecMech.ElecMech):
 
     def disorderRate(self, dE):
         """Calculate rate for a given dE, assuming constant V"""
-        return self.baseRate(self.V+dE)*self.probE(dE)
+        return self.baseRate(self.V, dE)*self.probE(dE)
 
     def rate(self, V):
         """Calculate rate integrated over dE, the range of intrinsic energy disorder of surface"""
@@ -57,17 +66,28 @@ class DisorderHER(ElecMech.ElecMech):
         return integrate.quad(self.disorderRate, self.dE_range[0], self.dE_range[1])[0]
 
 
+
 if __name__ == "__main__":
     V_dom = np.linspace(-0.2,0.2,500)
-    k_list = [1,1,1,1] #k1, kn1, k2, kn2
-    dE_range = [-10,10]
+    ## k1, kn1, k2, kn2
+    #k_list = [1,1,1,1] 
+    k_list = [1,1,1,1] 
     sig = 0.01
+    dE_range = [-4,4]
 
     dis = DisorderHER(k_list, sig)
     rate_list = []
     disorder_list = []
     dis.H = 1.
-    sig_list = [0.01, 0.05, 0.1, 0.2]
+#    sig_list = [0.001, 0.01, 0.05, 0.1, 0.2, 0.4, 0.8]
+    sig_list = [0.01, 0.05, 0.1, 0.2, 0.4]
+
+    sim = SimTafel.SimTafel(dis)
+
+    #dis.sig = 0.4
+    #print(integrate.quad(dis.probE, dE_range[0], dE_range[1])) #check normalization of prob distribution
+    #print(integrate.quad(dis.probE, dis.dE_range[0], dis.dE_range[1])) #check normalization of prob distribution
+    #print(dis.rate(V=0.01))
 
     ## Creates /work/Tafel/disorder/disorderHER_VvsI.png
     """
@@ -93,15 +113,82 @@ if __name__ == "__main__":
     plt.show()
     """
 
-    ##print(integrate.quad(dis.probE, dE_range[0], dE_range[1])) #check normalization of prob distribution
+    ## pH dependence with intrinsic disorder
+    #"""
+    V_list = []
+    onset_J = 0.1
+    n = 40
+    pH_list = np.linspace(-4, 4, n)
 
-    sim = SimTafel.SimTafel(dis)
+    fig, (ax0,ax1) = plt.subplots(nrows=2)
 
-    print(dis.sig)
-    dis.sig = 1
-    print(dis.sig2)
-    print(dis.sig)
+    for sig in sig_list:
+        dis.sig = sig
+        V_arr = np.zeros(n)
+        for i, pH in enumerate(pH_list):
+            dis.pH = pH
+            V_arr[i] = sim.findOnsetV(onset_J, onsetV_guess=-0.03)['x']
 
+        ax0.plot(pH_list, V_arr)
+
+        dVdpH = np.gradient(V_arr, pH_list[1]-pH_list[0]) #inverse of Tafel slope; calc this way bc V_dom indep var w/ even spacing
+        ax1.plot(pH_list, dVdpH, label=str(sig))
+
+    plt.xlabel("pH")
+    ax0.set_ylabel("Onset Potential (V)")
+    ax1.set_ylabel("dV/dpH")
+    #plt.xlim([-0.01, 0.21])
+    fig.set_size_inches(11.,11.,forward=True)
+    plt.legend()
+    plt.savefig("IntrinsicHet_pHvsOnsetV.png", transparent=True, bbox_inches='tight', pad_inches=0.02)
+    #plt.show()
+
+
+
+    #"""
+
+    ## Plot onset potential as a function of intrinsic disorder
+    """
+    V_list = []
+    onset_J = 0.1
+    n = 60
+    sig_list = np.linspace(0.001, 0.2, n)
+
+    fig, ax = plt.subplots()
+
+    ## Test to make sure that disorder converges to ordered at sig = 0.
+    #ordered_mech = ElecMech.RevPcet2()
+    #ordered_mech.setConsts(k_list)
+    #ordered_mech.setConc(0)
+    #ordered_sim = SimTafel.SimTafel(ordered_mech)
+    #V_ordered = ordered_sim.findOnsetV(onset_J)['x']
+    #plt.scatter(0., V_ordered)
+
+    k_ratios = [1, 5, 10, 25, 50, 100]
+    for ratio in k_ratios:
+        ks = [1./ratio,ratio,ratio,1./ratio]
+        dis.setConsts(ks)
+        print(dis.k1, dis.kn1, dis.k2, dis.kn2)
+        V_arr = np.zeros(n)
+        for i, sig in enumerate(sig_list):
+            dis.sig = sig
+            V_arr[i] = sim.findOnsetV(onset_J, onsetV_guess=-0.03)['x']
+
+        plt.scatter(sig_list, V_arr, )
+        plt.plot(sig_list, V_arr, label=ratio)
+
+    plt.xlabel("Disorder")
+    plt.ylabel("Onset Potential (V)")
+    plt.xlim([-0.01, 0.21])
+    fig.set_size_inches(11.,11.,forward=True)
+    plt.legend()
+    plt.savefig("IntrinsicHet_DisorderVsOnsetV.png", transparent=True, bbox_inches='tight', pad_inches=0.02)
+    #plt.show()
+    """
+
+
+    ## Plot Tafel slope as a function of intrinsic disorder
+    """
 
     fig, (ax0,ax1) = plt.subplots(nrows=2)
     for s in sig_list:
@@ -125,6 +212,8 @@ if __name__ == "__main__":
     ax0.set_ylabel('log(I)')
     ax1.set_ylabel('$\partial$V/$\partial$log(I)')
     ax1.legend()
+    fig.set_size_inches(11.,11., forward=True)
 
-
-    plt.show()
+    #plt.show()
+    plt.savefig("IntrinsicHet_1t1_VvsJ.png", transparent=True, bbox_inches='tight', pad_inches=0.02)
+    """

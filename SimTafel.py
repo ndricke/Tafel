@@ -65,6 +65,16 @@ class SimTafel(object):
         #print(onsetV_list)
         return onsetV_list
 
+    def findOnsetV(s, onset_J, onsetV_guess=0.):
+        """Find the onset potential for a given current
+        input: onset_J (float) -- target onset current
+        returns: V (float) -- potential that yields onset_J
+        """
+        s.ep = onset_J
+        V_root = opt.root(s.onsetV, onsetV_guess, method='hybr')
+        return V_root
+
+
     def onsetGradPH(s, pH_linspace, guess_V=1.029):
         onsetV_list = s.onsetScanPH(pH_linspace, guess_V=0)
         dx = pH_linspace[1] - pH_linspace[0]
