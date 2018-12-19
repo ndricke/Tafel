@@ -12,28 +12,12 @@ import SimTafel
 font = {'size':22}
 mpl.rc('font',**font)
 
-class DisorderHER(ElecMech.ElecMech):
+class DisorderMech(ElecMech.ElecMech):
 
     def __init__(self, ks, sig):
         ElecMech.ElecMech.__init__(self, k_rate=ks) #set general & rate constants
         self._sig = sig #energy variance of intermediate energies on surface
         self.V = None
-
-    def setConsts(self, ks):
-        ## Set all of the base rate constants (excluding V, pH dependence)
-        self.k1 = ks[0]
-        self.kn1 = ks[1]
-        self.k2 = ks[2]
-        self.kn2 = ks[3]
-
-    @property
-    def pH(self):
-        return self._pH
-
-    @pH.setter
-    def pH(self, value):
-        self.H = 10**(-1.*value)
-        self._pH = value
 
     @property
     def sig(self):
@@ -45,12 +29,6 @@ class DisorderHER(ElecMech.ElecMech):
         dEspan = self.sig * 10 + self.sig2*200 #so the numerical integration works over a range of values of sig
         self.dE_range = [-1.*dEspan, dEspan]
         self._sig = value
-
-
-    def baseRate(self, V, dE=0.):
-        k1, kn1 = self.PCET(ks=[self.k1, self.kn1], V=V+dE, H=self.H, mech='acid')
-        k2, kn2 = self.PCET(ks=[self.k2, self.kn2], V=V-dE, H=self.H, mech='acid')
-        return self.rev2(k1,k2,kn1,kn2)
 
     def probE(self, dE):
         """Energy probability distribution for surface sites assumed gaussian"""
@@ -65,13 +43,64 @@ class DisorderHER(ElecMech.ElecMech):
         self.V = V
         return integrate.quad(self.disorderRate, self.dE_range[0], self.dE_range[1])[0]
 
+class DisorderPEET(DisorderMech):
+    """Disorder included for PCET followed by electron transfer"""
+    def __init__(self, ks, sig):
+        super().__init__(ks, sig)
+
+    def setConsts(self, ks):
+        ## Set all of the base rate constants (excluding V, pH dependence)
+        self.k1 = ks[0]
+        self.kn1 = ks[1]
+        self.k2 = ks[2]
+        self.kn2 = ks[3]
+
+    def baseRate(self, V, dE=0.):
+        k1, kn1 = self.PCET(ks=[self.k1, self.kn1], V=V+dE, H=self.H, mech='acid')
+        k2, kn2 = self.ET(ks=[self.k2, self.kn2], V=V-dE)
+        return self.rev2(k1,k2,kn1,kn2)
+
+class DisorderGCC(DisorderMech):
+    """Disorder included for PCET followed by electron transfer"""
+    def __init__(self, ks, sig):
+        super().__init__(ks, sig)
+
+    def setConsts(self, ks):
+        ## Set all of the base rate constants (excluding V, pH dependence)
+        self.k1 = ks[0]
+        self.kn1 = ks[1]
+        self.k2 = ks[2]
+        self.kn2 = ks[3]
+
+    def baseRate(self, V, dE=0.):
+        k1, kn1 = self.PCET(ks=[self.k1, self.kn1], V=V+dE, H=self.H, mech='acid')
+        k2, kn2 = self.PCET(ks=[self.k2, self.kn2], V=V-dE, H=self.O2, mech='acid')
+        return self.rev2(k1,k2,kn1,kn2)
+
+
+
+class DisorderHER(DisorderMech):
+
+    def __init__(self, ks, sig):
+        super().__init__(ks, sig)
+
+    def setConsts(self, ks):
+        ## Set all of the base rate constants (excluding V, pH dependence)
+        self.k1 = ks[0]
+        self.kn1 = ks[1]
+        self.k2 = ks[2]
+        self.kn2 = ks[3]
+
+    def baseRate(self, V, dE=0.):
+        k1, kn1 = self.PCET(ks=[self.k1, self.kn1], V=V+dE, H=self.H, mech='acid')
+        k2, kn2 = self.PCET(ks=[self.k2, self.kn2], V=V-dE, H=self.H, mech='acid')
+        return self.rev2(k1,k2,kn1,kn2)
 
 
 if __name__ == "__main__":
     V_dom = np.linspace(-0.2,0.2,500)
     ## k1, kn1, k2, kn2
-    #k_list = [1,1,1,1] 
-    k_list = [1,1,1,1] 
+    k_list = [1,1000,1000,1] 
     sig = 0.01
     dE_range = [-4,4]
 
@@ -118,7 +147,7 @@ if __name__ == "__main__":
     V_list = []
     onset_J = 0.1
     n = 40
-    pH_list = np.linspace(-4, 4, n)
+    pH_list = np.linspace(-2, 8, n)
 
     fig, (ax0,ax1) = plt.subplots(nrows=2)
 
@@ -140,8 +169,8 @@ if __name__ == "__main__":
     #plt.xlim([-0.01, 0.21])
     fig.set_size_inches(11.,11.,forward=True)
     plt.legend()
-    plt.savefig("IntrinsicHet_pHvsOnsetV.png", transparent=True, bbox_inches='tight', pad_inches=0.02)
-    #plt.show()
+    #plt.savefig("IntrinsicHet_1t1000_pHvsOnsetV.png", transparent=True, bbox_inches='tight', pad_inches=0.02)
+    plt.show()
 
 
 

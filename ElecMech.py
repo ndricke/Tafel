@@ -17,6 +17,15 @@ class ElecMech:
         if k_rate is not None: s.setConsts(k_rate)
         if conc is not None: s.setConc(conc)
 
+    @property
+    def pH(self):
+        return self._pH
+
+    @pH.setter
+    def pH(self, value):
+        self.H = 10**(-1.*value)
+        self._pH = value
+
     def PCET(s, ks, V=None, H=None, mech='acid'):
         if mech == 'acid':
             return ks[0]*H*np.exp(-0.5*s.f*V), ks[1]*np.exp(0.5*s.f*V)
@@ -26,14 +35,14 @@ class ElecMech:
         elif mech == 'both':
             ka, kna = s.PCET(ks[:2], V, H, mech='acid')
             kb, knb = s.PCET(ks[:2], V, H, mech='base')
-            return ka + kb*ks[2], kna + knb*ks[2] 
+            return ka + kb*ks[2], kna + knb*ks[2]
 
     def irrevPCET(s, k, V=None, H=None):
-        return k*H*np.exp(-0.5*s.f*V) 
+        return k*H*np.exp(-0.5*s.f*V)
 
     def PT(s, ks, H=None, mech='acid'):
         return ks[0]*H, ks[1]
-        
+
     def ET(s, ks, V=None, mech='acid'):
         return ks[0]*np.exp(-0.5*s.f*V), ks[1]*np.exp(0.5*s.f*V)
 
@@ -77,7 +86,7 @@ class ElecMech:
 
 class ClassicBV(ElecMech):
 
-    def rate(s, V): 
+    def rate(s, V):
         return s.k1*np.exp(-0.5*s.f*V) - s.kn1*np.exp(0.5*s.f*V)
 
     def setConsts(s, p):
@@ -88,10 +97,10 @@ class ClassicBV(ElecMech):
 
     def setConc(s, p):
         s.pH = p
-        
+
 class BV(ElecMech):
 
-    def rate(s, V): 
+    def rate(s, V):
         return s.k1*10**(-s.pH)*np.exp(-0.5*s.f*V) - s.kn1*np.exp(0.5*s.f*V)
 
     def setConsts(s, p):
@@ -102,10 +111,10 @@ class BV(ElecMech):
 
     def setConc(s, p):
         s.pH = p
-        
+
 ##Butler-Volmer, with reversible mechanism
 class MultiBV(ElecMech):
-    def rate(s, V): 
+    def rate(s, V):
         fwd = (s.A*10.**(-s.pH) + s.B)*np.exp(-s.a*V*s.f)
         bck = (s.A + s.B*10.**(s.pH))*np.exp((1.-s.a)*V*s.f)*s.C
         return fwd - bck
@@ -120,7 +129,7 @@ class MHC(ElecMech):
 
     def rate(s, V):
         eta = V + s.dG
-        k1, kn1 = s.kMHC(eta, s.lam), s.kMHC(-eta, s.lam)        
+        k1, kn1 = s.kMHC(eta, s.lam), s.kMHC(-eta, s.lam)
         return s.A*(k1 - kn1)
 
     def setConsts(s, p):
@@ -132,7 +141,7 @@ class MHC(ElecMech):
 """Mechanism with a PCET followed by split proton and electron transfer"""
 class Rev2PTET(ElecMech):
 
-    def rate(s, V): 
+    def rate(s, V):
         H = 10.**(-s.pH)
         k1, kn1 = s.PCET((s.k1,s.kn1), V=V, H=H, mech='acid')
         k2, kn2 = s.PT((s.k2,s.kn2), H=H, mech='acid')
@@ -145,10 +154,27 @@ class Rev2PTET(ElecMech):
     def setConc(s, p):
         s.pH = p
 
+"""Cycle with 2 reversible eletron transfers, one as a PCET, one as O2-CET"""
+class Rev2PcetO2(ElecMech):
+
+    def rate(s, V):
+        H = 10.**(-s.pH)
+        k1, kn1 = s.PCET((s.k1,s.kn1), V=V, H=H, mech='acid')
+        k2, kn2 = s.PT((s.k2,s.kn2), H=s.O2, mech='acid')
+        return (k1*k2 - kn1*kn2)/(k1 + k2 + kn1 + kn2)
+
+    def setConsts(s, p):
+        s.k1, s.k2, s.k3, s.kn1, s.kn2, s.kn3 = p
+
+    def setConc(s, p):
+        s.pH = p[0]
+        s.O2 = p[1]
+
+
 """Cycle with 2 reversible, acid-mediated PCET steps"""
 class RevPcet2(ElecMech):
 
-    def rate(s, V): 
+    def rate(s, V):
         H = 10.**(-s.pH)
         k1, k2 = s.k1*H*np.exp(-0.5*s.f*V), s.k2*H*np.exp(-0.5*s.f*V)
         kn1, kn2 = s.kn1*np.exp(0.5*s.f*V), s.kn2*np.exp(0.5*s.f*V)
@@ -164,13 +190,13 @@ class RevPcet2(ElecMech):
     def genConsts(s, dGi_Ti):
         s.k1, s.kn1 = s.gen_k_edge(dGi_Ti[0], dGi_Ti[2])
         s.k2, s.kn2 = s.gen_k_edge(dGi_Ti[1], dGi_Ti[3])
-        
+
 class RevPcet2MHC(ElecMech):
 
     def rate(s, V):
         eta1, eta2 = V + s.dG1, V + s.dG2
-        k1, kn1 = s.kMHC(eta1, s.lam1), s.kMHC(-eta1, s.lam1)        
-        k2, kn2 = s.kMHC(eta2, s.lam2), s.kMHC(-eta2, s.lam2)        
+        k1, kn1 = s.kMHC(eta1, s.lam1), s.kMHC(-eta1, s.lam1)
+        k2, kn2 = s.kMHC(eta2, s.lam2), s.kMHC(-eta2, s.lam2)
         return s.A * s.rev2(k1, k2, kn1, kn2)
 
     def setConsts(s, p):
@@ -182,7 +208,7 @@ class RevPcet2MHC(ElecMech):
 
 class RevPcet2ab(ElecMech):
 
-    def rate(s, V): 
+    def rate(s, V):
         H = 10.**(-s.pH)
         k1, kn1 = s.PCET((s.k1,s.kn1, s.kab1), V=V, H=H, mech='both')
         k2, kn2 = s.PCET((s.k2,s.kn2, s.kab2), V=V, H=H, mech='both')
@@ -193,7 +219,7 @@ class RevPcet2ab(ElecMech):
 
     def setConc(s, p):
         s.pH = p
-        
+
     def genConsts(s, dGi_Ti):
         """
         k1, kn1: PCET step with both acidic and basic mechanisms
@@ -210,7 +236,7 @@ class RevPcet2ab(ElecMech):
 """Cycle with 2 reversible, acid- and base-mediated PCET steps"""
 class Rev2PTETab(ElecMech):
 
-    def rate(s, V): 
+    def rate(s, V):
         H = 10.**(-s.pH)
         k1, kn1 = s.PCET((s.k1,s.kn1, s.kab1), V=V, H=H, mech='both')
         k2, kn2 = s.PT((s.k2,s.kn2, s.kab2), H=H, mech='both')
@@ -250,7 +276,7 @@ class Cyc3Trap(ElecMech):
 
 
 if __name__ == "__main__":
-    import SimTafel    
+    import SimTafel
     import matplotlib.pyplot as plt
 
     dom = 400
@@ -271,20 +297,3 @@ if __name__ == "__main__":
 
 
     plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
