@@ -1,7 +1,9 @@
 import numpy as np
 import scipy as sc
 
-class ElecMech:
+
+
+class ElecMech(object):
     """concentrations: dictionary of the concentrations of non-intermediate species (pH, [O2], ect)
     rate_constants: dictionary of the rate constants for every step in the reaction network
     ep: for finding pH/concentration dependence, we must assume an observed constant current with varying concentration
@@ -72,6 +74,15 @@ class ElecMech:
     def rev2(k1, k2, kn1, kn2):
         return (k1*k2 - kn1*kn2)/(k1 + k2 + kn1 + kn2)
 
+    @property
+    def pH(self):
+        return self._pH
+
+    @pH.setter
+    def pH(self, value):
+        self.H = 10.**(-value)
+        self._pH = value
+        
     ##To be defined in child class
     def rate(s, V):
         pass
@@ -164,7 +175,7 @@ class Rev2PcetO2(ElecMech):
         return (k1*k2 - kn1*kn2)/(k1 + k2 + kn1 + kn2)
 
     def setConsts(s, p):
-        s.k1, s.k2, s.k3, s.kn1, s.kn2, s.kn3 = p
+        s.k1, s.k2, s.kn1, s.kn2 = p
 
     def setConc(s, p):
         s.pH = p[0]
