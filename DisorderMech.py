@@ -12,9 +12,32 @@ import SimTafel
 font = {'size':22}
 mpl.rc('font',**font)
 
+"""
+This class needs to:
+1. Implement disorder in both rate constants and perceived voltage
+2.
+"""
+
 class DisorderMech(ElecMech.ElecMech):
+    """Model electrochemical cycles with disorder
+    Note that there are several distinct ways of including disorder:
+    1. Disorder in the voltage felt at different sites
+    2. Disorder in the rate constants (need to ensure this is consistent for fwd and reverse)
+    """
 
     def __init__(self, ks, sig):
+        """
+        Parameters:
+        -----------
+        ks: List
+        rate constants for catalytic cycle
+        sig: Float
+        metric for disorder in the catalysis process
+
+        Returns:
+        --------
+        None
+        """
         ElecMech.ElecMech.__init__(self, k_rate=ks) #set general & rate constants
         self._sig = sig #energy variance of intermediate energies on surface
         self.V = None
@@ -100,7 +123,7 @@ class DisorderHER(DisorderMech):
 if __name__ == "__main__":
     V_dom = np.linspace(-0.2,0.2,500)
     ## k1, kn1, k2, kn2
-    k_list = [1,1000,1000,1] 
+    k_list = [1,1000,1000,1]
     sig = 0.01
     dE_range = [-4,4]
 

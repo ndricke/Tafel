@@ -1,30 +1,38 @@
 """
-Determine the Tafel slope and pH dependence of a cycle with 2 parallel pathways with different intermediate energies
+Determine the Tafel slope and pH dependence of a cycle with multiple parallel
+pathways with different intermediate energies.
 We saw the half order behavior when the intermediate energies were spread over a distribution,
-so including additional parallel pathways should converge
-
-
-Tafel slope is of secondary interest to pH dependence, so we'll focus on the latter here first
-
-The 2 requirements of SimTafel are a rate function that only requires the voltage, V, as input,
-setConsts, which sets all the rate constants (k), and s.pH set as the same for all individual cycles
-
-One obvious way to do this is to have a tuple of ElecMech objects, but currently each cycle has its own individual
-concentration and voltage. I could potentially write routines to pass these to each of the cycles
---> setter for s.pH that also sets s.pH for each individual cycle
---> the rate function will call each cycle in order, finding individual rates, and return their sum
+so including additional parallel pathways should converge.
 """
 
 from tafel import ElecMech
 from tafel import SimTafel
+import numpy as np
 
 class MultiCycle(ElecMech.ElecMech):
+    """
+    Set a series of parallel cycles w/ individual rates and concentration dependencies
+    """
 
-    def __init__(self, cycle_tuple, k_rate=None, conc=None, dG=0., a=0.5):
-        super().__init__(k_rate, conc, dG, a)
+    def __init__(self, cycle_tuple, weights=None, conc=None, dG=0., a=0.5):
+        """
+        Need to have initialized all ElecMech in cycle_tuple with rate constants beforehand
+        -----------
+        Parameters:
+        cycle_tuple: (tuple) of ElecMech classes that act as parallel catalytic cycles
+        weights: (list) population of each cycle (normalized to 1). fraction of active sites for each mech
+        conc: pH, O2 concentration, depending on ElecMechs
+        dG: (float) free energy of overall cycle
+        -------
+        Returns:
+        None
+        """
+
+        super().__init__(dG=dG, a=a)
         self.cyc_tuple = cycle_tuple
-
-        ## Set a series of parallel cycles w/ individual rates and concentration dependencies
+        if weights == None:
+            weight = 1.0/float(len(self.cyc_tuple)) #want the weights to add to 1 for comparison to indiv cycles
+            self.weights = [weight]*len(self.cyc_tuple)
 
     @property
     def pH(self):
@@ -38,79 +46,85 @@ class MultiCycle(ElecMech.ElecMech):
 
     def rate(self, V):
         rate = 0
-        for cyc in self.cyc_tuple:
-            rate += cyc.rate(V)
+        for i, cyc in enumerate(self.cyc_tuple):
+            rate += cyc.rate(V) * self.weights[i]
         return rate
+
+def dG2k(dG_list):
+    ##Generate rate constants from intermediate free energies
+    kT = 8.61733*10**-5 * 298.15 #in eV/K, assuming T = 298.15
+    ks = []
+    for dG in dG_list:
+        k = np.exp(-0.5*dG/kT)
+        kn = np.exp(0.5*dG/kT)
+        ks.append(k)
+        ks.append(kn)
+    return ks
+
+def CycDistribution(em_cyc, E_delta, dG_list, cyc_count=1, conc=[1.,1.]):
+    cyc_list = []
+    for i in range(cyc_count):
+        dG1 = dG_list[0] + E_delta*i
+        dG2 = dG_list[1] - E_delta*i
+        ks = dG2k([dG1, dG2])
+        cyc_list.append(em_cyc(k_rate=ks, conc=conc))
+    return cyc_list
+
+def genMCrates(mc, pH_range, V=-1.2):
+    rate_list_mc = []
+    for pH in pH_range:
+        mc.pH = pH
+        rate_list_mc.append(np.log10(np.abs(mc.rate(V))))
+    return rate_list_mc
+
+def plotMC(pH_range, rate_list_mc, dlogRdpH, ax0, ax1):
+    ax0.plot(pH_range, rate_list_mc, linewidth=2)
+    ax1.plot(pH_range, dlogRdpH, linewidth=2)
+
+def plotParallelCycles(dGs, delta, pH_range, cyc_count, ax0, ax1, cyc_weights=None):
+    cyc_list = CycDistribution(ElecMech.Rev2PcetO2, delta/float(cyc_count), dGs, cyc_count=cyc_count)
+    mc = MultiCycle(cyc_list, weights=cyc_weights)
+    rates = genMCrates(mc, pH_range)
+    dlogRdpH = np.gradient(rates, pH_range[1]-pH_range[0])
+    plotMC(pH_range, rates, dlogRdpH, ax0, ax1)
 
 if __name__ == "__main__":
 
-    import numpy as np
+    import matplotlib as mpl
     import matplotlib.pyplot as plt
 
+    font = {'size':22}
+    mpl.rc('font',**font)
 
-    dG = -0.1 # reaction is overall downhill 0.2
+    cyc_count = 5
+    delta = 0.3
+    V = -1.2
+    pH_range = np.linspace(0.,14.,400)
+    dG = -0.1 # reaction is overall downhill
 
-    kT = 8.61733*10**-5 * 298.15 #in eV/K, assuming T = 298.15
+    dG1 = 0.2 #free energy barrier for reaction to intermediate 1
+    dG2 = dG - dG1 # dG2 is defined implicitly by the overall energy of the cycle
+    dGs = np.array([dG1, dG2])
 
-    k_ratio = np.exp(-1.*dG/(kT))
-
-    #how to split k_ratio into k1/kn1 and k2/kn2? --> essentially need to assume barrier heights (possibly 0?)
-    #if we assume the barrier height is 0
-    #now, instead of using some ks2_speedup factor, maybe it would be better to just list 2 intermediate free energies
-    dG1 = 0.2
-    dG2 = 0.3
-
-    #we want both cycles to have intermediates with the same barriers, changing only the intermediate energy
-    k1_ratio = np.exp(-1.*dG1/(kT))
-    k1 = 
-    k2 =
-    kn1 =
-    kn2 =
-
-    k2_ratio = np.exp(-1.*dG2/(kT)) # k1k2/knkn2 ratio for cycle 2
-
-    #I think the barrier is determined by
-
-
-    ks1 = [0.1,10.,10.,0.1] # k1, k2, kn1, kn2
-    #ks2 = [0.1,10.,10.,0.1] # k1, k2, kn1, kn2
-    ks2 = [1./11.,11.,11.,1./11.] # k1, k2, kn1, kn2
-
-    #ks1 = [1.,1.,1.,1.] # k1, k2, kn1, kn2
-    #ks2 = [1.,1.,1.,1.] # k1, k2, kn1, kn2
-
-    pH_range = np.linspace(-7.,7.,400)
-    V = 0.
-
+    ks1 = dG2k([dG1, dG2])
     cyc1 = ElecMech.Rev2PcetO2(k_rate=ks1, conc=[1.,1.])
-    cyc2 = ElecMech.Rev2PcetO2(k_rate=ks2, conc=[1.,1.])
-
-    cyc1.pH = 1.
-    cyc2.pH = 1.
-
-    print(cyc1.rate(0.2))
-    print(cyc2.rate(0.2))
-
-    cyc_list = [cyc1, cyc2]
-
-    mc = MultiCycle(cyc_list)
-
-    mc.pH = 3
-
-    print(mc.cyc_tuple[0].pH)
-    print(mc.cyc_tuple[1].pH)
 
     #sim = SimTafel.SimTafel(mc) #not currently using any methods from this class
 
-    rate_list = []
-    for pH in pH_range:
-        mc.pH = pH
-        rate_list.append(np.log10(np.abs(mc.rate(V))))
-        #cyc1.pH = pH
-        #rate_list.append(np.log10(np.abs(cyc1.rate(V))))
-        #rate_list.append(cyc1.rate(V))
+    fig, (ax0,ax1) = plt.subplots(nrows=2)
 
-    print(pH_range)
-    print(rate_list)
-    plt.plot(pH_range, rate_list)
+    for i in range(1, cyc_count+1):
+        if i == 1: dGs_shift = dGs
+        else:  dGs_shift = dGs - 0.5*delta
+        #weight_dist = np.polynomial.legendre.leggauss(i)  #weights from gaussian quadrature, x=deltas, y=weights
+        plotParallelCycles(dGs_shift, delta, pH_range, i, ax0, ax1, cyc_weights=weight_dist)
+
+    ax1.set_ylim([-2,2])
+    ax0.set_ylabel("Reaction Rate")
+    ax1.set_ylabel("dR/dpH")
+    plt.xlabel('pH')
+
+    fig.set_size_inches(11.,11.,forward=True)
+
     plt.show()
+    #plt.savefig("DoubleCycle_PcetO2_CycDist5_gaussDistribution.png", transparent=True, bbox_inches='tight', pad_inches=0.02)
