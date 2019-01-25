@@ -14,8 +14,9 @@ mpl.rc('font',**font)
 
 """
 This class needs to:
-1. Implement disorder in both rate constants and perceived voltage
-2.
+1. Implement disorder in both rate constants and perceived voltage (and test effect of each)
+2. Gaussian quadrature for integrating over disorder
+3. Functions for fitting rate constants and disorder to experimental data
 """
 
 class DisorderMech(ElecMech.ElecMech):

@@ -82,7 +82,7 @@ class ElecMech(object):
     def pH(self, value):
         self.H = 10.**(-value)
         self._pH = value
-        
+
     ##To be defined in child class
     def rate(s, V):
         pass
