@@ -14,7 +14,7 @@ class ElecMech(object):
         s.T = 298.15
         s.kT = 8.61733*10**-5 * s.T #in eV/K
         s.a = a
-        #s.dG = dG
+        s.dG = dG
         #s.Keq = np.exp(-dG/(s.R*s.T))
         if k_rate is not None: s.setConsts(k_rate)
         if conc is not None: s.setConc(conc)
@@ -201,6 +201,7 @@ class RevPcet2(ElecMech):
     def genConsts(s, dGi_Ti):
         s.k1, s.kn1 = s.gen_k_edge(dGi_Ti[0], dGi_Ti[2])
         s.k2, s.kn2 = s.gen_k_edge(dGi_Ti[1], dGi_Ti[3])
+
 
 class RevPcet2MHC(ElecMech):
 

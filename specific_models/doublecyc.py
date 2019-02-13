@@ -81,26 +81,27 @@ def genMCrates(mc, pH_range, V=-1.2):
         rate_list_mc.append(np.log10(np.abs(mc.rate(V))))
     return rate_list_mc
 
-def plotMC(pH_range, rate_list_mc, dlogRdpH, ax0, ax1):
-    ax0.plot(pH_range, rate_list_mc, linewidth=2)
+def plotMC(pH_range, rate_list_mc, dlogRdpH, ax0, ax1, dist_count):
+    ax0.plot(pH_range, rate_list_mc, linewidth=2, label=dist_count)
     ax1.plot(pH_range, dlogRdpH, linewidth=2)
 
 def plotParallelCycles(dGs, delta, pH_range, cyc_count, ax0, ax1, cyc_weights=None):
 
-    if type(delta) == float:
-        if cyc_count == 1:
-            delta_arr = np.zeros(1)
-        else:
-            delta_arr = np.linspace(-0.5*delta, 0.5*delta, cyc_count)
-    elif type(delta) == np.ndarray:
-        delta_arr = delta
+    #if type(delta) == float:
+    #    if cyc_count == 1:
+    #        delta_arr = np.zeros(1)
+    #    else:
+    #        delta_arr = np.linspace(-0.5*delta, 0.5*delta, cyc_count)
+    #elif type(delta) == np.ndarray:
+    #    delta_arr = delta
 
-    cyc_list = CycDistribution(ElecMech.Rev2PcetO2, delta_arr, dGs, cyc_count=cyc_count)
+    cyc_list = CycDistribution(ElecMech.Rev2PcetO2, delta, dGs, cyc_count=cyc_count)
 
     mc = MultiCycle(cyc_list, weights=cyc_weights)
     rates = genMCrates(mc, pH_range)
     dlogRdpH = np.gradient(np.array(rates), pH_range[1]-pH_range[0])
-    plotMC(pH_range, rates, dlogRdpH, ax0, ax1)
+    plotMC(pH_range, rates, dlogRdpH, ax0, ax1, len(delta))
+
 
 if __name__ == "__main__":
 
@@ -110,11 +111,11 @@ if __name__ == "__main__":
     font = {'size':22}
     mpl.rc('font',**font)
 
-    cyc_count = 1
-    delta = 0.1
-    sig = delta/2.
+    cyc_count = 40
+    delta = 0.3
+    sig = delta #sig = delta/2.
     V = -1.2
-    pH_range = np.linspace(-15.,15.,400)
+    pH_range = np.linspace(-5.,14.,400)
     dG = -0.1 # reaction is overall downhill
 
     dG1 = 0.2 #free energy barrier for reaction to intermediate 1
@@ -129,18 +130,29 @@ if __name__ == "__main__":
     fig, (ax0,ax1) = plt.subplots(nrows=2)
 
     for i in range(1, cyc_count+1,8):
-        #delta, weight_dist = np.polynomial.hermite.hermgauss(i)  #gaussian quadrature, x=deltas, y=weights
-        #weight_dist *= 1./(np.pi**0.5) # the weights from gaussian quadrature actually sum to 2
-        #delta *= sig*2**0.5
-        weight_dist = np.ones(i)/i
-        plotParallelCycles(dGs, delta, pH_range, i, ax0, ax1, cyc_weights=weight_dist)
+        deltas, weights = np.polynomial.hermite.hermgauss(i)  #gaussian quadrature, x=deltas, y=weights
+        weights *= 1./(np.pi**0.5) # the weights from gaussian quadrature actually sum to 2
+        deltas *= 0.5*sig*2**0.5
+        print("Hermite dist:", deltas, weights)
+
+        #weights = np.ones(i)/i
+        #if i == 1:
+        #    deltas = [0.]
+        #else:
+        #    deltas = np.linspace(-1.0*delta,delta,i)
+        #print("Even dist:", deltas, weights)
+
+        plotParallelCycles(dGs, deltas, pH_range, i, ax0, ax1, cyc_weights=weights)
+
+    #sys.exit(-1)
 
     #ax1.set_ylim([-2,2])
     ax0.set_ylabel("Reaction Rate")
     ax1.set_ylabel("dR/dpH")
     plt.xlabel('pH')
+    ax0.legend(loc=3)
 
     fig.set_size_inches(11.,11.,forward=True)
 
-    plt.show()
-    #plt.savefig("DoubleCycle_PcetO2_CycDist5_gaussDistD3.png", transparent=True, bbox_inches='tight', pad_inches=0.02)
+    #plt.show()
+    plt.savefig("DoubleCycle_PcetO2_CycDist40_gaussDistD3.png", transparent=True, bbox_inches='tight', pad_inches=0.02)
