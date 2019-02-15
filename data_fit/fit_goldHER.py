@@ -36,16 +36,14 @@ class RevPcet2(tafel.ElecMech.ElecMech):
         self.kab = 1. #this is to be set explicitly if acid and base mechanisms have different barriers
         self.kab2 = 1.
         super().__init__(dG=dG, a=a)
-        if mech == "base" or mech == "both":
+        if mech == "base" or mech == "both" or mech == "acid":
             self.mech = mech
-        elif mech == "acid":
-            self.mech = "acid"
         else:
             raise ValueError("%s is not a valid PCET mechanism" % (str(mech)) )
 
         if ddGs is None and weights is None:
-            self.ddGs = [0.]
-            self.weights = [1.]
+            self.ddGs = np.array([0.])
+            self.weights = np.array([1.])
         else:
             self.weights = weights
             self.ddGs = ddGs
@@ -76,7 +74,8 @@ class RevPcet2(tafel.ElecMech.ElecMech):
 
     def disorderFunc(self, VpH, dG1, T1, T2, sig):
         rate = 0.
-        mod_ddGs = self.ddGs*0.5*sig*2**0.5
+
+        mod_ddGs = self.ddGs*0.5*sig*2.**0.5
         for i in range(len(self.weights)):
             self.genConsts((dG1+mod_ddGs[i], T1, T2))
             rate += self.weights[i]*self.rate(VpH[0,:], VpH[1,:])
@@ -124,11 +123,15 @@ class Rev2PTET(RevPcet2):
         rate = self.rate(VpH[0,:], VpH[1,:])
         return np.log10(rate)
 
+    def funcDisFullE(self, VpH, dG1, T1, dG2, T2, T3, sig, dG):
+        self.dG = dG
+        return self.disorderFunc(VpH, dG1, T1, dG2, T2, T3, sig)
+
     def disorderFunc(self, VpH, dG1, T1, dG2, T2, T3, sig):
         rate = 0.
         mod_ddGs = self.ddGs*0.5*sig*2**0.5
         for i in range(len(self.weights)):
-            self.genConsts((dG1+mod_ddGs[i], T1, T2))
+            self.genConsts((dG1+mod_ddGs[i], T1, dG2, T2, T3))
             rate += self.weights[i]*self.rate(VpH[0,:], VpH[1,:])
         return np.log10(rate)
 
@@ -157,7 +160,7 @@ weights *= 1./(np.pi**0.5) # the weights from gaussian quadrature actually sum t
 deltas *= 0.5*sig*2**0.5
 
 ### Plot of MJdata with 2 reversible PCET's (no disorder)
-opt_mech = RevPcet2()
+#opt_mech = RevPcet2()
 #popt, pcov = opt.curve_fit(opt_mech.func, x_data, y_data, p0=(-0.2,0.01,0.01), bounds=((-2.,0.,0.),(-0.0000001,np.inf,np.inf)))
 #mech_rate = opt_mech.func(x_data, popt[0], popt[1], popt[2])
 
@@ -170,8 +173,9 @@ opt_mech = RevPcet2()
 #plt.scatter(mech_rate_mf, -1.*x_data[0,:], label='NoDis w/ dis consts)')
 
 ###Plot of MJdata with RevPcet2: disorder, variable total energy
-popt, pcov = opt.curve_fit(opt_mech.funcDisFullE, x_data, y_data, p0=(-0.2,0.01,0.01,1.2,0.0), bounds=((-5.0,0.,0.,0.,-5.0),(5.0,np.inf,np.inf,5.0,5.0)))
-mech_rate = opt_mech.funcDisFullE(x_data, popt[0], popt[1], popt[2], popt[3], popt[4]) #optimizing for disorder makes it real big
+#opt_mech = RevPcet2(weights=weights, ddGs=deltas)
+#popt, pcov = opt.curve_fit(opt_mech.funcDisFullE, x_data, y_data, p0=(-0.2,0.01,0.01,1.2,0.0), bounds=((-5.0,0.,0.,0.,-5.0),(5.0,np.inf,np.inf,5.0,5.0)))
+#mech_rate = opt_mech.funcDisFullE(x_data, popt[0], popt[1], popt[2], popt[3], popt[4]) #optimizing for disorder makes it real big
 
 ### Plot MJdata fit with PCET-ET (no disorder) --> the pH dependence on Pcet2 is too high, so this curbs it
 #opt_mech = RevPcetEt()
@@ -179,7 +183,7 @@ mech_rate = opt_mech.funcDisFullE(x_data, popt[0], popt[1], popt[2], popt[3], po
 #mech_rate = opt_mech.func(x_data, popt[0], popt[1], popt[2])
 
 
-#opt_mech = RevPcetEt(weights=weights, ddGs=deltas)
+opt_mech = RevPcetEt(weights=weights, ddGs=deltas, mech="acid")
 ### Plot MJdata fit with PCET-ET (disorder)
 #popt, pcov = opt.curve_fit(opt_mech.disorderFunc, x_data, y_data, p0=(-0.2,0.01,0.01,0.4), bounds=((-5.0,0.,0.,0.),(5.0,np.inf,np.inf,5.0)))
 ##mech_rate = opt_mech.disorderFunc(x_data, popt[0], popt[1], popt[2])
@@ -187,8 +191,8 @@ mech_rate = opt_mech.funcDisFullE(x_data, popt[0], popt[1], popt[2], popt[3], po
 
 
 ### Plot MJdata with total energy of mechanism as a parameter
-#popt, pcov = opt.curve_fit(opt_mech.funcDisFullE, x_data, y_data, p0=(-0.2,0.01,0.01,1.2,0.0), bounds=((-5.0,0.,0.,0.,-5.0),(5.0,np.inf,np.inf,5.0,5.0)))
-#mech_rate = opt_mech.funcDisFullE(x_data, popt[0], popt[1], popt[2], popt[3], popt[4]) #optimizing for disorder makes it real big
+popt, pcov = opt.curve_fit(opt_mech.funcDisFullE, x_data, y_data, p0=(-0.2,0.01,0.01,1.2,0.0), bounds=((-5.0,0.,0.,0.,-5.0),(5.0,np.inf,np.inf,5.0,5.0)))
+mech_rate = opt_mech.funcDisFullE(x_data, popt[0], popt[1], popt[2], popt[3], popt[4]) #optimizing for disorder makes it real big
 
 ### Plot MJdata with acid-base mechanism switch
 #opt_mech = RevPcetEt(weights=weights, ddGs=deltas, mech="both", dG=0.)
@@ -203,21 +207,38 @@ mech_rate = opt_mech.funcDisFullE(x_data, popt[0], popt[1], popt[2], popt[3], po
 #                           bounds=((-5.0,0.,0.,0.,0.,0.),(5.0,np.inf,np.inf,5.0,np.inf,np.inf)))
 #mech_rate = opt_mech.funcDisFullEAB(x_data, popt[0], popt[1], popt[2], popt[3], popt[4], popt[5]) #optimizing for disorder makes it real big
 
-### Plot MJdata with PCET, ET, PT
-#opt_mech = RevPcet2(weights=weights, ddGs=deltas, mech="both", dG=-0.01)
-#popt, pcov = opt.curve_fit(opt_mech.funcDisFullEAB, x_data, y_data, p0=(-0.1,0.01,0.01,0.2,10.**-7,10.**-7), \
-#                           bounds=((-5.0,0.,0.,0.,0.,0.),(5.0,np.inf,np.inf,5.0,np.inf,np.inf)))
-#mech_rate = opt_mech.funcDisFullEAB(x_data, popt[0], popt[1], popt[2], popt[3], popt[4], popt[5]) #optimizing for disorder makes it real big
+### Plot MJdata with PCET, ET, PT. The parameters to funcDisFullE are dG1, T1, dG2, T2, T3, sig, dG
+#opt_mech = Rev2PTET(weights=weights, ddGs=deltas, mech="acid", dG=-0.01)
+#popt, pcov = opt.curve_fit(opt_mech.funcDisFullE, x_data, y_data, p0=(-0.1, 0.01, 0.1, 0.01, 0.01, 0.2, 0.09), \
+#                           bounds=((-5.0, 0., -5.0, 0., 0., 0., -5.0),(5.0, np.inf, 5.0, np.inf, np.inf, 5.0, 5.0)))
+#mech_rate = opt_mech.funcDisFullE(x_data, popt[0], popt[1], popt[2], popt[3], popt[4], popt[5], popt[6])
+
+#opt_mech = Rev2PTET(weights=weights, ddGs=deltas, mech="acid", dG=-0.11)
+#popt, pcov = opt.curve_fit(opt_mech.func, x_data, y_data, p0=(-3.43327893e-01, 2.34271331e-01, -9.08074722e-02, 7.33348673e-25, 8.20121377e-11), \
+#                           bounds=((-5.0, 0., -5.0, 0., 0.),(5.0, np.inf, 5.0, np.inf, np.inf)))
+#mech_rate = opt_mech.func(x_data, popt[0], popt[1], popt[2], popt[3], popt[4])
+
+
+
+
+### Why does Rev2PTET have the wrong J/V relationship?
+#pH_const = np.ones(50)
+#V_range = np.linspace(-2.,2.0,50)
+##mech_rate = opt_mech.func(x_data, -0.1, 0.01, 0.1, 0.01, 0.01)
+#opt_mech.dG = -0.7
+#opt_mech.genConsts((-0.1, 0.0001, -0.2, 0.0001, 0.00000001))
+#mech_rate = opt_mech.rate(V_range, pH_const)
+
 
 print(popt) #, pcov)
-plt.scatter(mech_rate, -1.*x_data[0,:], label='Fit: Disorder')
+plt.scatter(mech_rate, x_data[0,:], label='Fit: Disorder')
 
 
 ### Plot experimental MJdata
 slope_list, intercept_list, r_val_list = [], [], []
 x = np.array([-4.30, -2.6])
 for pH_val in pH_values:
-    plt.scatter(data[data['pH']==pH_val]['logJ'], data[data['pH']==pH_val]['VvsNHE'], label=pH_val)
+    plt.scatter(data[data['pH']==pH_val]['logJ'], -1.*data[data['pH']==pH_val]['VvsNHE'], label=pH_val)
 
     ### Fit a line to each pH value, plot it, and save relevant values
     #slope, intercept, r_val, p_val, std_err = scst.linregress(data[data['pH']==pH_val]['logJ'], data[data['pH']==pH_val]['VvsNHE'])
