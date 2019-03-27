@@ -63,6 +63,10 @@ class ElecMech(object):
             dG_fwd, dG_back = 0, dG
         else:
             dG_fwd, dG_back = dG, 0
+
+        print("dG_fwd: ", dG_fwd)
+        print("dG_back: ", dG_back)
+        print("TS: ", TS)
         k1, kn1 = np.exp(-(TS+dG_fwd)/s.kT), np.exp(-(TS-dG_back)/s.kT)
         return k1, kn1
 
