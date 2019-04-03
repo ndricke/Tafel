@@ -58,8 +58,8 @@ class RevPcet2(tafel.ElecMech.ElecMech):
 
     """Generate the rate constants for this reaction from intermediate and TS energies"""
     def genConsts(self, dGi_Ti):
-        print("dG_1: ", dGi_Ti[0])
-        print("dG_2: ", self.dG-dGi_Ti[0])
+        #print("dG_1: ", dGi_Ti[0])
+        #print("dG_2: ", self.dG-dGi_Ti[0])
         self.k1, self.kn1 = self.gen_k_edge(dGi_Ti[0], dGi_Ti[1])
         self.k2, self.kn2 = self.gen_k_edge(self.dG-dGi_Ti[0], dGi_Ti[2]) #for HER, dG of the cycle is 0 vs NHE
 
@@ -101,6 +101,20 @@ class RevPcet2(tafel.ElecMech.ElecMech):
         #print(rate)
         return np.log10(rate)
 
+class RevPcet2Scale(RevPcet2):
+    def func(self, VpH, dG1, T1, T2, scale):
+        self.genConsts((dG1, T1, T2))
+        rate = scale*self.rate(VpH[0,:], VpH[1,:])
+        return np.log10(rate)
+
+    def rate(self, V, pH):
+        H = 10.**(-pH)
+        k1, k2 = self.k1*H*np.exp(-0.5*self.f*V), self.k2*H*np.exp(-0.5*self.f*V)
+        kn1, kn2 = self.kn1*np.exp(0.5*self.f*V), self.kn2*np.exp(0.5*self.f*V)
+        return (k1*k2 - kn1*kn2)/(k1 + k2 + kn1 + kn2)
+        #return (k1*k2)/(k1 + k2 + kn1 + kn2)
+
+
 class RevPcetEt(RevPcet2):
 
     def rate(self, V, pH):
@@ -110,6 +124,21 @@ class RevPcetEt(RevPcet2):
         k2, kn2 = self.k2*np.exp(-0.5*self.f*V), self.kn2*np.exp(0.5*self.f*V)
         print("VpH applied ks: ", k1,k2,kn1,kn2)
         return (k1*k2 - kn1*kn2)/(k1 + k2 + kn1 + kn2)
+
+class RevPcetEtScale(RevPcet2):
+    def func(self, VpH, dG1, T1, T2, scale):
+        self.genConsts((dG1, T1, T2))
+        rate = scale*self.rate(VpH[0,:], VpH[1,:])
+        return np.log10(rate)
+
+    def rate(self, V, pH):
+        H = 10.**(-pH)
+        #k1, kn1 = self.PCET((self.k1, self.kn1, self.kab), V=V, H=H, mech=self.mech)
+        k1, kn1 = self.k1*H*np.exp(-0.5*self.f*V), self.kn1*np.exp(0.5*self.f*V)
+        k2, kn2 = self.k2*np.exp(-0.5*self.f*V), self.kn2*np.exp(0.5*self.f*V)
+        #print("VpH applied ks: ", k1,k2,kn1,kn2)
+        return (k1*k2 - kn1*kn2)/(k1 + k2 + kn1 + kn2)
+        #return (k1*k2)/(k1 + k2 + kn1 + kn2)
 
 """Mechanism with a PCET followed by split proton and electron transfer"""
 class Rev2PTET(RevPcet2):
