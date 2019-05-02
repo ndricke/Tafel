@@ -104,8 +104,8 @@ class RevPcet2(tafel.ElecMech.ElecMech):
 class RevPcet2Scale(RevPcet2):
     def func(self, VpH, dG1, T1, T2, scale):
         self.genConsts((dG1, T1, T2))
-        rate = scale*self.rate(VpH[0,:], VpH[1,:])
-        return np.log10(rate)
+        rate = (10.**scale)*self.rate(VpH[0,:], VpH[1,:])
+        return rate
 
     def rate(self, V, pH):
         H = 10.**(-pH)
