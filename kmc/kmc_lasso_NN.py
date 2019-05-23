@@ -71,7 +71,7 @@ sys.exit(-1)
 
 ep = 10.**-10
 
-df = pd.read_csv("k_run.csv")
+df = pd.read_csv("~/work/tafel/KMC/k_run.csv")
 B3_string = sys.argv[1] # the 3-site correlation term to estimate
 
 assert len(B3_string) == 3 #this model is only made to predict 3-site terms
@@ -84,12 +84,9 @@ assert len(B3_string) == 3 #this model is only made to predict 3-site terms
 df['O'] = 1. - df.A - df.B
 B3_middle = B3_string[1]
 
-
 B3_left2 = B2_convert(B3_string[0], B3_string[1])
 B3_right2 = B2_convert(B3_string[1], B3_string[2])
 B3 = B3_convert(B3_string)
-
-
 
 #df_x = df[["A","B","OO","OA+AO","OB+BO","AA","AB+BA","BB"]].values
 
@@ -98,42 +95,41 @@ B3 = B3_convert(B3_string)
 #df_x["B"] = 1./(df_x["B"]+ep)
 #df_x["O"] = 1./(df_x["O"]+ep)
 
+df["OA+AO"] = df["OA+AO"]/2.
+df["OB+BO"] = df["OB+BO"]/2.
+df["AB+BA"] = df["AB+BA"]/2.
 
 df["B3_Estimate"] = df[B3_left2]*df[B3_right2]/(df[B3_middle])
-#df["B3sub_Estimate"] = df[B3_left2]*df[B3_string[2]] + df[B3_right2]*df[B3_string[0]] - df[B3_string[0]]*df[B3_string[1]]*df[B3_string[2]]
+df["B3sub_Estimate"] = df[B3_left2]*df[B3_string[2]] + df[B3_right2]*df[B3_string[0]] - df[B3_string[0]]*df[B3_string[1]]*df[B3_string[2]]
 
-df_x = df[["OA+AO","OB+BO","AA","AB+BA","BB", "B3_Estimate"]].values
+#df.to_csv("k_run_prep.csv")
+
+#df_x = df[["OA+AO","OB+BO","AA","AB+BA","BB", "B3_Estimate"]].values
 #df_x = df[["OA+AO","OB+BO","AA","AB+BA","BB"]].values
 #df_x = df[["B3_Estimate"]].values
-#df_x = df[["B3sub_Estimate"]].values
+df_x = df[["B3sub_Estimate"]].values
 
 #df = df[["OA+AO","OB+BO","AA","AB+BA","BB","OAB+BAO","AAB+BAA","BAB","OBA+ABO","ABA","ABB+BBA","BBB","AAA"]]
 
-#df_AAA = df["OAB+BAO"]
-#df_AAA = df["AAB+BAA"]
-#df_AAA = df["BAB"]
-#df_AAA = df["OBA+ABO"]
-#df_AAA = df["ABA"]
-#df_AAA = df["ABB+BBA"]
-#df_AAA = df["BBB"]
-#df_AAA = df["AAA"]
+"""
+"OAB+BAO" "AAB+BAA" "BAB" "OBA+ABO" "ABA" "ABB+BBA" "BBB" "AAA"
+"""
+
 df_B3 = df[B3]
 
-
-poly = skprep.PolynomialFeatures(3)
-X_poly = poly.fit_transform(df_x)
-#X_poly = df_x
-print("type of df_x: ", type(df_x))
-
-#sc_x = skprep
-#X = skprep.scale(X_poly)
+#poly = skprep.PolynomialFeatures(3)
+#X_poly = poly.fit_transform(df_x)
+X_poly = df_x
 
 y = np.array(df_B3)
 
 sc_x = skprep.StandardScaler()
 sc_y = skprep.StandardScaler()
 X_std = sc_x.fit_transform(X_poly)
-print(X_std.mean(), X_std.std())
+#print(sc_x.mean_)
+#print(sc_x.scale_)
+#print(X_std.mean(), X_std.std())
+#X_std = X_poly
 
 X_train, X_test, y_train, y_test = skms.train_test_split(X_std, y, test_size=0.2, random_state=1)
 #print(X_std)
@@ -155,24 +151,24 @@ al = 10.**-5
 #alpha_list = [10.**-4, 5*10.**-5, 10.**-5]
 #for al in alpha_list:
 #regr = sklm.ElasticNet(alpha=al, l1_ratio=0.9, random_state=0)
-#regr = sklm.Lasso(alpha=al, random_state=0, max_iter=2000)
-#regr = sklm.LinearRegression()
+#regr = sklm.Lasso(alpha=al, random_state=0, max_iter=4000)
+regr = sklm.LinearRegression()
 #regr = KernelRidge(alpha=10.**-5, kernel="RBF")
 
 #regr = MLPRegressor(hidden_layer_sizes=(50,20,8), random_state=1, alpha=al)
-#regr = MLPRegressor(hidden_layer_sizes=(100,100,20), random_state=1, alpha=al, max_iter=4000)
 
 
 layers = [(84,42)]
+#regr = MLPRegressor(hidden_layer_sizes=(84,42,20), random_state=1, alpha=al, max_iter=20000)
 #layers = [(84,42), (84,84), (168,84)]
 #layers = [(84,42,8), (40,20,10), (20,20,20)]
 #layers = [(168,168), (40,40,40)]
-for layer in layers:
-    regr = MLPRegressor(hidden_layer_sizes=layer, alpha=al, max_iter=4000)
-
-    kf = skms.KFold(n_splits=5)
-    results = skms.cross_val_score(regr, X_std, y, cv=kf, scoring="neg_mean_squared_error")
-    print(layer, np.mean(results), np.std(results))
+#for layer in layers:
+#    regr = MLPRegressor(hidden_layer_sizes=layer, alpha=al, max_iter=4000)
+#
+#    kf = skms.KFold(n_splits=5)
+#    results = skms.cross_val_score(regr, X_std, y, cv=kf, scoring="neg_mean_squared_error")
+#    print(layer, np.mean(results), np.std(results))
 
 regr.fit(X_train, y_train)
 y_fit = regr.predict(X_train)
@@ -183,17 +179,26 @@ print("Mean squared error test: %.8f" % skm.mean_squared_error(y_test, y_pred))
 # Explained variance score: 1 is perfect prediction
 print('Variance score: %.4f' % skm.r2_score(y_test, y_pred))
 
+#print(poly.powers_)
+#ppow = poly.powers_
+#for i in range(len(regr.coef_)):
+#    if regr.coef_[i] > ep:
+#        print(regr.coef_[i], ppow[i,:], sc_x.mean_[i], sc_x.scale_[i])
+
 
 plt.scatter(y_fit, y_train, color='blue', label="Training Data")
 plt.scatter(y_pred, y_test, color='orange', label="Testing Data")
 
 plt.plot([-1,1],[-1,1], color="black")
-plt.ylabel("%s from KMC" % B3)
+#plt.ylabel("%s from KMC" % B3)
+plt.ylabel("Kinetic Monte Carlo")
 plt.xlabel("Fit")
 plt.xlim([-0.004,np.max(y_pred)+0.005])
 plt.ylim([-0.004, np.max(y)+0.005])
-plt.show()
-#plt.savefig("OAB_o3lasso_B3subest_krun.png", transparent=True, bbox_inches='tight', pad_inches=0.05)
+plt.legend()
+
+#plt.show()
+plt.savefig("OAB_B3subest_LL_krun.png", transparent=True, bbox_inches='tight', pad_inches=0.05)
 
 
 

@@ -23,6 +23,15 @@ def pcet2explicit(V, k1o, k2o, kn1o, kn2o):
     #return (k1*k2 - kn1*kn2)/(k1 + k2 + kn1 + kn2)
     return (k1*k2)/(k1 + k2 + kn1 + kn2)
 
+def pcet2VpH(VpH, k1o, k2o, kn1o, kn2o):
+    f = 38.949
+    expf = np.exp(-0.5*f*V[:,0])
+    expb = 1./expf
+    expfpH = expf*10.**(VpH[:,1] - 14.)
+    k1, k2 = k1o*expfpH, k2o*expfVpH
+    kn1, kn2 = kn1o*expb, kn2o*expb
+    #return (k1*k2 - kn1*kn2)/(k1 + k2 + kn1 + kn2)
+    return (k1*k2)/(k1 + k2 + kn1 + kn2)
 
 
 font = {'size':18}
@@ -40,6 +49,13 @@ if mech == "pcet2":
     #p_bounds = ((-2.5, 0., 0., 0.),(-0.0000001,np.inf,np.inf,np.inf))
 elif mech == "ktest":
     opt_func = pcet2explicit
+    #p_guess = np.array([1.28310184, 1.4140497, 0.43930788, 0.05681383])
+    p_guess = np.array([1.28310184, 1.4140497, 0.43930788, 0.05681383])
+    p_guess[3] /= 1000.
+    #p_guess = (12.8310184, 14.140497, 0.43930788, 0.05681383)
+    p_bounds = ((0., 0., 0., 0.),(np.inf,np.inf,np.inf,np.inf))
+elif mech == "ktestpH":
+    opt_func = pcet2VpH
     #p_guess = np.array([1.28310184, 1.4140497, 0.43930788, 0.05681383])
     p_guess = np.array([1.28310184, 1.4140497, 0.43930788, 0.05681383])
     p_guess[3] /= 1000.
@@ -63,24 +79,25 @@ x_data_pH[1,:] = pH_data["pH"]
 
 y_data_pH = np.ones(pH_len)*10**-6
 
-x_data = np.array([data["VvsRHE"],data["VvsRHE"]*0.]) #set second column to 0 for pH
-pH = 13.
-x_data[0,:] -= 0.059 * pH # convert RHE to SHE
+x_data = np.zeros((len(data),2))
+x_data[:,0] = data["VvsRHE"]
+pH = 13. #the tafel data is collected all at pH 13
+x_data[0,:] -= 0.059 * pH # convert Tafel data RHE to NHE for direct comparison
 y_data = 10.**np.array(data["logJ"]) # convert y_data to J rather than log10(J)
 x_range = np.zeros((2,n_dom))
-x_range[0,:] = np.linspace(x_data[0,0]-1, x_data[0,-1]+1, n_dom)
+x_range[0,:] = np.linspace(x_data[0,0]-0.35, x_data[0,-1]+0.35, n_dom)
 x_range[1,:] = np.ones(n_dom)*13.
 
 print("x data: ", x_data)
 print("y data: ", y_data)
 
-#popt, pcov = opt.curve_fit(opt_mech.func, x_data, y_data, p0=p_guess, bounds=p_bounds)
-popt, pcov = opt.curve_fit(opt_func, x_data[0,:].flatten(), y_data, p0=p_guess) #, bounds=p_bounds)
+popt, pcov = opt.curve_fit(opt_mech.func, x_data, y_data, p0=p_guess, bounds=p_bounds)
+#popt, pcov = opt.curve_fit(opt_func, x_data[0,:].flatten(), y_data, p0=p_guess, bounds=p_bounds)
 #popt = p_guess
-mech_rate = opt_func(x_range[0,:].flatten(), *popt)
+#mech_rate = opt_func(x_range[0,:].flatten(), *popt)
 
 #popt = p_guess
-#mech_rate = opt_mech.func(x_range, *popt)
+mech_rate = opt_mech.func(x_range, *popt)
 
 print("Optimized Parameters: ", popt) #, pcov)
 print("Parameter covariance matrix: ")
@@ -124,4 +141,5 @@ plt.show()
 
 
 
+#plt.savefig("irpcet2_gccTafel.png", transparent=True, bbox_inches='tight', pad_inches=0.05)
 #plt.savefig("%s_pca%s.png" % (catalyst, pca_n), transparent=True, bbox_inches='tight', pad_inches=0.05)
