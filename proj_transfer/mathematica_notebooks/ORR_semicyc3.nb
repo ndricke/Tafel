@@ -1,0 +1,158 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 11.1' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      4150,        148]
+NotebookOptionsPosition[      3388,        122]
+NotebookOutlinePosition[      3722,        137]
+CellTagsIndexPosition[      3679,        134]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[{
+ RowBox[{"A1", " ", "=", " ", 
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{
+       RowBox[{"-", "k1"}], "-", "kn3"}], "kn1", "k3"},
+     {"k1", 
+      RowBox[{
+       RowBox[{"-", "k2"}], "-", "kn1"}], "0"},
+     {"1", "1", "1"}
+    }], ")"}]}], "\[IndentingNewLine]", 
+ RowBox[{"b1", " ", "=", 
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {"0"},
+     {"0"},
+     {"1"}
+    }], "\[NoBreak]", ")"}]}]}], "Input",
+ CellChangeTimes->{{3.7228763130346823`*^9, 
+  3.722876332690372*^9}},ExpressionUUID->"cdfa311f-8651-4a6a-878a-\
+8aa1b7923e1a"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"-", "k1"}], "-", "kn3"}], ",", "kn1", ",", "k3"}], "}"}], ",", 
+   
+   RowBox[{"{", 
+    RowBox[{"k1", ",", 
+     RowBox[{
+      RowBox[{"-", "k2"}], "-", "kn1"}], ",", "0"}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"1", ",", "1", ",", "1"}], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.7228763903619213`*^9},ExpressionUUID->"74190d77-e507-41f6-8c0b-\
+7def56a5931d"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", "0", "}"}], ",", 
+   RowBox[{"{", "1", "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.7228763903632717`*^9},ExpressionUUID->"7a175bf8-c42d-45fc-9d42-\
+5766fda62159"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"LinearSolve", "[", 
+  RowBox[{"A1", ",", "b1"}], "]"}]], "Input",ExpressionUUID->"2b46337d-63d7-\
+4064-bd6f-6c354d56e3d1"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{
+   RowBox[{"{", 
+    FractionBox[
+     RowBox[{"k3", " ", 
+      RowBox[{"(", 
+       RowBox[{"k2", "+", "kn1"}], ")"}]}], 
+     RowBox[{
+      RowBox[{"k1", " ", "k2"}], "+", 
+      RowBox[{"k1", " ", "k3"}], "+", 
+      RowBox[{"k2", " ", "k3"}], "+", 
+      RowBox[{"k3", " ", "kn1"}], "+", 
+      RowBox[{"k2", " ", "kn3"}], "+", 
+      RowBox[{"kn1", " ", "kn3"}]}]], "}"}], ",", 
+   RowBox[{"{", 
+    FractionBox[
+     RowBox[{"k1", " ", "k3"}], 
+     RowBox[{
+      RowBox[{"k1", " ", "k2"}], "+", 
+      RowBox[{"k1", " ", "k3"}], "+", 
+      RowBox[{"k2", " ", "k3"}], "+", 
+      RowBox[{"k3", " ", "kn1"}], "+", 
+      RowBox[{"k2", " ", "kn3"}], "+", 
+      RowBox[{"kn1", " ", "kn3"}]}]], "}"}], ",", 
+   RowBox[{"{", 
+    FractionBox[
+     RowBox[{
+      RowBox[{"k1", " ", "k2"}], "+", 
+      RowBox[{"k2", " ", "kn3"}], "+", 
+      RowBox[{"kn1", " ", "kn3"}]}], 
+     RowBox[{
+      RowBox[{"k1", " ", "k2"}], "+", 
+      RowBox[{"k1", " ", "k3"}], "+", 
+      RowBox[{"k2", " ", "k3"}], "+", 
+      RowBox[{"k3", " ", "kn1"}], "+", 
+      RowBox[{"k2", " ", "kn3"}], "+", 
+      RowBox[{"kn1", " ", "kn3"}]}]], "}"}]}], "}"}]], "Output",
+ CellChangeTimes->{
+  3.722876399241687*^9},ExpressionUUID->"5d3f1f5b-4bb1-443b-a67f-\
+1f208854be68"]
+}, Open  ]]
+},
+WindowSize->{932, 1034},
+WindowMargins->{{Automatic, 0}, {0, Automatic}},
+FrontEndVersion->"11.1 for Linux x86 (64-bit) (March 13, 2017)",
+StyleDefinitions->"Default.nb"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 570, 19, 128, "Input", "ExpressionUUID" -> \
+"cdfa311f-8651-4a6a-878a-8aa1b7923e1a"],
+Cell[1153, 43, 474, 16, 34, "Output", "ExpressionUUID" -> \
+"74190d77-e507-41f6-8c0b-7def56a5931d"],
+Cell[1630, 61, 259, 8, 34, "Output", "ExpressionUUID" -> \
+"7a175bf8-c42d-45fc-9d42-5766fda62159"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1926, 74, 146, 3, 34, "Input", "ExpressionUUID" -> \
+"2b46337d-63d7-4064-bd6f-6c354d56e3d1"],
+Cell[2075, 79, 1297, 40, 149, "Output", "ExpressionUUID" -> \
+"5d3f1f5b-4bb1-443b-a67f-1f208854be68"]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+

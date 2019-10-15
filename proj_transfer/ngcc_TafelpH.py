@@ -2,14 +2,14 @@ import sys
 
 import numpy as np
 import pandas as pd
-#import tafel.DisorderMech as DM
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import scipy.stats as scst
 import scipy.optimize as opt
 
-import tafel.ElecMech
+import ElecMech
 import fit_goldHER
+#import DisorderMech as DM
 
 
 """
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     font = {'size':18}
     mpl.rc('font',**font)
 
-    datadir = sys.argv[1] # directory where NGCC data is stored. The image for this data is in the same folder
+    datadir = "data_csv"
 
     ## x: log(J), y: E/V vs NHE
     tafel_data = pd.read_csv(datadir+'/NGCC_Tafel_data.csv', names=['logJ','VvsRHE'])
@@ -59,25 +59,12 @@ if __name__ == "__main__":
     #mech_rate = opt_mech.funcFullE(x_data, popt[0], popt[1], popt[2], popt[3])
 
     #opt_mech = fit_goldHER.RevPcetEt(weights=weights, ddGs=deltas, mech="acid")
-    #popt, pcov = opt.curve_fit(opt_mech.funcDisFullE, x_data, y_data, p0=(-0.2,0.01,0.01,1.2,0.0), bounds=((-5.0,0.,0.,0.,-5.0),(5.0,np.inf,np.inf,5.0,5.0)))
-    #mech_rate = opt_mech.funcDisFullE(x_data, popt[0], popt[1], popt[2], popt[3], popt[4]) #optimizing for disorder makes it real big
+    popt, pcov = opt.curve_fit(opt_mech.funcDisFullE, x_data, y_data, p0=(-0.2,0.01,0.01,1.2,0.0), 
+                               bounds=((-5.0,0.,0.,0.,-5.0),(5.0,np.inf,np.inf,5.0,5.0)))
+    mech_rate = opt_mech.funcDisFullE(x_data, popt[0], popt[1], popt[2], popt[3], popt[4]) #optimizing for disorder makes it real big
 
     print(opt_mech.rate(0.,1.))
 
-    #print(x_data[0,:].shape)
-    #print(y_data.shape)
-    #print(mech_rate.shape)
-#
-    #print(x_data)
-    #print()
-    #print(y_data)
-    #print()
-    #print(mech_rate)
-
-    #plt.scatter(x_data[0,:], y_data)
-    #plt.scatter(x_data[0,:], mech_rate)
-    #plt.show()
-
-
-
-##
+    plt.scatter(x_data[0,:], y_data)
+    plt.scatter(x_data[0,:], mech_rate)
+    plt.show()
