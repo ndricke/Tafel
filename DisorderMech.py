@@ -167,7 +167,7 @@ if __name__ == "__main__":
     """
 
     ## pH dependence with intrinsic disorder
-    #"""
+    """
     V_list = []
     onset_J = 0.1
     n = 40
@@ -198,7 +198,7 @@ if __name__ == "__main__":
 
 
 
-    #"""
+    """
 
     ## Plot onset potential as a function of intrinsic disorder
     """
@@ -235,13 +235,13 @@ if __name__ == "__main__":
     plt.xlim([-0.01, 0.21])
     fig.set_size_inches(11.,11.,forward=True)
     plt.legend()
-    plt.savefig("IntrinsicHet_DisorderVsOnsetV.png", transparent=True, bbox_inches='tight', pad_inches=0.02)
-    #plt.show()
+    #plt.savefig("IntrinsicHet_DisorderVsOnsetV.png", transparent=True, bbox_inches='tight', pad_inches=0.02)
+    plt.show()
     """
 
 
     ## Plot Tafel slope as a function of intrinsic disorder
-    """
+    #"""
 
     fig, (ax0,ax1) = plt.subplots(nrows=2)
     for s in sig_list:
@@ -267,6 +267,6 @@ if __name__ == "__main__":
     ax1.legend()
     fig.set_size_inches(11.,11., forward=True)
 
-    #plt.show()
-    plt.savefig("IntrinsicHet_1t1_VvsJ.png", transparent=True, bbox_inches='tight', pad_inches=0.02)
-    """
+    plt.show()
+    #plt.savefig("IntrinsicHet_1t1_VvsJ.png", transparent=True, bbox_inches='tight', pad_inches=0.02)
+    #"""

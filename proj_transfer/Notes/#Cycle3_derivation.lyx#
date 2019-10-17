@@ -505,7 +505,58 @@ The way pH dependence is generally measured for an electrochemical mechanism
  This creates a mV/pH measurement as the general way to describe pH dependence
  for these mechanisms.
  In the Butler-Volmer equation above, the acid mechanism has a 120mV/pH
- dependence for the forward step, and none for the backward step 
+ dependence for the forward step, and none for the backward step (and the
+ reverse of this for the mechanism in base).
+\end_layout
+
+\begin_layout Standard
+For the limiting cases for the 3-step cycle with the acidic mechanism, the
+ rate equations become:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R=[H^{+}]^{2}\frac{k_{i}^{0}k_{j}^{0}e^{-2\alpha fV}}{k_{-i}e^{(1-\alpha)fV}}\rightarrow[H^{+}]\propto e^{\frac{3}{4}fV}$
+\end_inset
+
+ , or 80 mV/pH
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R=[H^{+}]^{3}\frac{k_{i}^{0}k_{j}^{0}k_{m}e^{-3\alpha fV}}{k_{-i}k_{-j}e^{2(1-\alpha)fV}}\rightarrow[H^{+}]\propto e^{\frac{5}{6}fV}$
+\end_inset
+
+, or 72 mV/pH
+\end_layout
+
+\begin_layout Standard
+Notably, this trend will not go below 60 mV/pH unless some of the forward
+ steps are not pH dependent.
+ More significantly, these equations will not create a situation where the
+ pH dependence mV/pH is lower than the Tafel slope in mV/dec, and can certainly
+ not fit the sustained fractional pH dependence Dinca and Yogi have observed
+ experimentally.
+ In the case that one of the steps is pH independent, the reaction will
+ normally switch between a pH dependence to no pH dependence over the course
+ of ~1 pH unit (as this represents an order of magnitude shift in the relative
+ rate constants).
+\end_layout
+
+\begin_layout Subsection*
+Disorder
+\end_layout
+
+\begin_layout Standard
+The original idea for including disorder is that having a distribution of
+ rate constants could broaden out the transition between pH dependence and
+ independence.
+ Since the data is often only over a couple pH units, it can be hard for
+ the experimentalists to distinguish between a straight line and something
+ that is slightly curved.
+ The disorder necessary to smear out rate constants over this range is reasonabl
+e: 60mV is 0.06 eV in the mechanism, and disorder on the order of 0.5 eV could
+ easily exist (according to some conversations I've had with experimentalists).
+ If adding disorder allows the model to fit all of the experimental data,
+ 
 \end_layout
 
 \end_body

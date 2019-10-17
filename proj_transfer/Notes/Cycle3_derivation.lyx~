@@ -386,7 +386,7 @@ The go-to mechanism for representing the rate constants in electrochemical
 \end_layout
 
 \begin_layout Standard
-\begin_inset Formula $J=k_{1}^{0}e^{-\alpha fV}-k_{-1}^{0}e^{-\alpha fV}$
+\begin_inset Formula $J=k_{1}^{0}e^{-\alpha fV}-k_{-1}^{0}e^{(1-\alpha)fV}$
 \end_inset
 
 
@@ -422,12 +422,95 @@ A lot of electrochemists will measure what they call a Tafel slope for a
 , which you'll notice does the odd thing of putting the independent variable,
  voltage, above the dependent variable, current.
  This unfortunate notation is probably historical.
- For the mechanism I showed above, the Tafel slope is 120mV/dec, or 120mV
- per 10x change in current.
+ For the mechanism I showed above, assuming that 
+\begin_inset Formula $\alpha=\frac{1}{2}$
+\end_inset
+
+ the Tafel slope is 120mV/dec, or 120mV per 10x change in current.
 \end_layout
 
 \begin_layout Standard
-For the 3-step mechanism I showed above
+For the 3-step mechanism I showed above, if every step is just a 1-electron
+ transfer, there are 3 Tafel slopes that it could produce over a sustained
+ range of voltage, each based on a limiting case of the mechanism where
+ one part of the denominator dominates the others.
+\end_layout
+
+\begin_layout Standard
+If 2 forward steps dominate:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R=k_{i}^{0}e^{-\alpha fV}$
+\end_inset
+
+, which is just the forward rate of the Butler-Volmer equation, and has
+ a 120 mV/dec Tafel slope.
+\end_layout
+
+\begin_layout Standard
+If 1 forward step and 1 reverse step:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R=\frac{k_{i}^{0}k_{j}^{0}e^{-2\alpha fV}}{k_{-i}e^{(1-\alpha)fV}}$
+\end_inset
+
+, which has a 40 mV/dec Tafel slope
+\end_layout
+
+\begin_layout Standard
+If 2 reverse steps:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $R=\frac{k_{i}^{0}k_{j}^{0}k_{m}e^{-3\alpha fV}}{k_{-i}k_{-j}e^{2(1-\alpha)fV}}$
+\end_inset
+
+, which has a 24 mV/dec Tafel slope
+\end_layout
+
+\begin_layout Standard
+Including pH dependence in these terms is as (to an approximation) as simple
+ as adding 
+\begin_inset Formula $[H^{+}]$
+\end_inset
+
+ to the forward rate or or 
+\begin_inset Formula $[OH^{-}]$
+\end_inset
+
+ to the reverse rate.
+ For Butler-Volmer:
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $J=k_{1}^{0}[H^{+}]e^{-\alpha fV}-k_{-1}^{0}e^{(1-\alpha)fV}$
+\end_inset
+
+ (acid)
+\end_layout
+
+\begin_layout Standard
+\begin_inset Formula $J=k_{1}^{0}e^{-\alpha fV}-k_{-1}^{0}[OH^{-}]e^{(1-\alpha)fV}$
+\end_inset
+
+ (base)
+\end_layout
+
+\begin_layout Standard
+The way pH dependence is generally measured for an electrochemical mechanism
+ is by measuring how much the voltage must be changed to keep the current
+ constant when the pH is changed.
+ This creates a mV/pH measurement as the general way to describe pH dependence
+ for these mechanisms.
+ In the Butler-Volmer equation above, the acid mechanism has a 120mV/pH
+ dependence for the forward step, and none for the backward step (and the
+ reverse of this for the mechanism in base).
+\end_layout
+
+\begin_layout Standard
+For the limiting cases 
 \end_layout
 
 \end_body
